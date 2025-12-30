@@ -9,11 +9,6 @@ export default function Login() {
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  // API URL con fallback para producción
-  const API_URL =
-    import.meta.env.VITE_API_URL ||
-    "https://ferreteria-alejandra.onrender.com";
-
   const handleLogin = async (e) => {
     e.preventDefault();
     setError("");
@@ -24,32 +19,18 @@ export default function Login() {
     }
 
     try {
-      // 🔐 Petición al backend
-      const res = await axios.post(
-        `${API_URL}/api/auth/login`,
-        { usuario, password }
-      );
+      const res = await axios.post("/api/auth/login", {
+        usuario,
+        password,
+      });
 
-      //  Guardar usuario en sesión
-      localStorage.setItem(
-        "user",
-        JSON.stringify(res.data.usuario)
-      );
-
-      // Redirigir al dashboard
+      localStorage.setItem("user", JSON.stringify(res.data.usuario));
       navigate("/dashboard");
-
     } catch (err) {
-      console.error("Error de login:", err);
       setError(
-        err.response?.data?.msg ||
-        "Usuario o contraseña incorrectos"
+        err.response?.data?.msg || "Usuario o contraseña incorrectos"
       );
     }
-  };
-
-  const noDisponible = (mensaje) => {
-    alert(mensaje);
   };
 
   return (
@@ -74,16 +55,6 @@ export default function Login() {
         <button type="submit">Ingresar</button>
 
         {error && <p className="error">{error}</p>}
-
-        <div className="login-links">
-          <span onClick={() => noDisponible("Función no habilitada")}>
-            ¿Olvidó su contraseña?
-          </span>
-
-          <span onClick={() => noDisponible("Registro deshabilitado")}>
-            Crear cuenta
-          </span>
-        </div>
       </form>
     </div>
   );

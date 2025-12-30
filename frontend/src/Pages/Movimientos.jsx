@@ -6,25 +6,18 @@ export default function Movimientos() {
   const [movimientos, setMovimientos] = useState([]);
   const [error, setError] = useState("");
 
-  // ✅ API URL con fallback para producción
-  const API_URL =
-    import.meta.env.VITE_API_URL ||
-    "https://ferreteria-alejandra.onrender.com";
-
   useEffect(() => {
+    const obtenerMovimientos = async () => {
+      try {
+        const res = await axios.get("/api/movimientos");
+        setMovimientos(res.data);
+      } catch (err) {
+        console.error(err);
+        setError("Error al cargar los movimientos");
+      }
+    };
     obtenerMovimientos();
-  }, [API_URL]);
-
-  const obtenerMovimientos = async () => {
-    try {
-      const res = await axios.get(`${API_URL}/api/movimientos`);
-      setMovimientos(res.data);
-      setError("");
-    } catch (err) {
-      console.error("Error al cargar movimientos:", err);
-      setError("Error al cargar los movimientos");
-    }
-  };
+  }, []);
 
   return (
     <div className="table-card">
@@ -41,7 +34,6 @@ export default function Movimientos() {
             <th>Fecha</th>
           </tr>
         </thead>
-
         <tbody>
           {movimientos.length === 0 ? (
             <tr>
@@ -53,21 +45,14 @@ export default function Movimientos() {
             movimientos.map((m) => (
               <tr key={m._id}>
                 <td>{m.producto?.nombre || "Producto eliminado"}</td>
-
-                <td
-                  className={
-                    m.tipo === "entrada" ? "entrada" : "salida"
-                  }
-                >
+                <td className={m.tipo === "entrada" ? "entrada" : "salida"}>
                   {m.tipo}
                 </td>
-
                 <td>
                   {m.tipo === "entrada"
                     ? `+${m.cantidad}`
                     : `-${m.cantidad}`}
                 </td>
-
                 <td>
                   {new Date(m.fecha).toLocaleDateString("es-EC")}
                 </td>
