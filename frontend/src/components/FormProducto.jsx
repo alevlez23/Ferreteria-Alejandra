@@ -14,16 +14,13 @@ export default function ListaProductos() {
     stock: "",
   });
 
-  // API URL con fallback para producción
-  const API_URL =
-    import.meta.env.VITE_API_URL ||
-    "https://ferreteria-alejandra.onrender.com";
-
   /* ===== OBTENER PRODUCTOS ===== */
   useEffect(() => {
     const obtenerProductos = async () => {
       try {
-        const res = await axios.get(`${API_URL}/api/productos`);
+        const res = await axios.get(
+          `${import.meta.env.VITE_API_URL}/api/productos`
+        );
         setProductos(res.data);
         setError("");
       } catch (err) {
@@ -33,14 +30,16 @@ export default function ListaProductos() {
     };
 
     obtenerProductos();
-  }, [API_URL]);
+  }, []);
 
   /* ===== ELIMINAR ===== */
   const eliminarProducto = async (id) => {
     if (!window.confirm("¿Eliminar producto definitivamente?")) return;
 
     try {
-      await axios.delete(`${API_URL}/api/productos/${id}`);
+      await axios.delete(
+        `${import.meta.env.VITE_API_URL}/api/productos/${id}`
+      );
       setProductos(productos.filter((p) => p._id !== id));
     } catch (err) {
       console.error("Error al eliminar:", err);
@@ -77,7 +76,7 @@ export default function ListaProductos() {
 
     try {
       const res = await axios.put(
-        `${API_URL}/api/productos/${editarProducto._id}`,
+        `${import.meta.env.VITE_API_URL}/api/productos/${editarProducto._id}`,
         {
           ...form,
           precio: Number(form.precio),

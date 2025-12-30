@@ -6,16 +6,21 @@ export default function Movimientos() {
   const [movimientos, setMovimientos] = useState([]);
   const [error, setError] = useState("");
 
+  /* ===== OBTENER MOVIMIENTOS ===== */
   useEffect(() => {
     const obtenerMovimientos = async () => {
       try {
-        const res = await axios.get("/api/movimientos");
+        const res = await axios.get(
+          `${import.meta.env.VITE_API_URL}/api/movimientos`
+        );
         setMovimientos(res.data);
+        setError("");
       } catch (err) {
-        console.error(err);
+        console.error("Error al cargar movimientos:", err);
         setError("Error al cargar los movimientos");
       }
     };
+
     obtenerMovimientos();
   }, []);
 
@@ -34,6 +39,7 @@ export default function Movimientos() {
             <th>Fecha</th>
           </tr>
         </thead>
+
         <tbody>
           {movimientos.length === 0 ? (
             <tr>
