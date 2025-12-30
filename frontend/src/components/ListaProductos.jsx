@@ -6,8 +6,7 @@ export default function ListaProductos() {
   const [productos, setProductos] = useState([]);
   const [error, setError] = useState("");
   const [editarProducto, setEditarProducto] = useState(null);
-
-  const [form, setForm] = useState({
+  const [nuevoProducto, setNuevoProducto] = useState({
     nombre: "",
     categoria: "",
     precio: "",
@@ -31,22 +30,48 @@ export default function ListaProductos() {
     obtenerProductos();
   }, [API_URL]);
 
-  /* ===== ELIMINAR ===== */
+  /* ===== AGREGAR PRODUCTO ===== */
+  const handleAgregarProducto = async () => {
+    const { nombre, categoria, precio, stock } = nuevoProducto;
+
+    if (!nombre.trim() || !categoria.trim() || precio === "" || stock === "") {
+      alert("Todos los campos son obligatorios");
+      return;
+    }
+
+    try {
+      const res = await axios.post(`${API_URL}/api/productos`, {
+        nombre,
+        categoria,
+        precio: Number(precio),
+        stock: Number(stock),
+      });
+
+      setProductos([...productos, res.data]);
+      setNuevoProducto({ nombre: "", categoria: "", precio: "", stock: "" });
+    } catch (err) {
+      console.error(err);
+      alert("Error al agregar producto");
+    }
+  };
+
+  /* ===== ELIMINAR PRODUCTO ===== */
   const eliminarProducto = async (id) => {
     if (!window.confirm("¿Eliminar producto definitivamente?")) return;
 
     try {
       await axios.delete(`${API_URL}/api/productos/${id}`);
       setProductos(productos.filter((p) => p._id !== id));
-    } catch {
+    } catch (err) {
+      console.error(err);
       alert("Error al eliminar producto");
     }
   };
 
-  /* ===== ABRIR MODAL ===== */
+  /* ===== ABRIR MODAL EDITAR ===== */
   const abrirEditar = (producto) => {
     setEditarProducto(producto);
-    setForm({
+    setNuevoProducto({
       nombre: producto.nombre,
       categoria: producto.categoria,
       precio: producto.precio,
@@ -56,26 +81,31 @@ export default function ListaProductos() {
 
   /* ===== INPUTS ===== */
   const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
+    setNuevoProducto({ ...nuevoProducto, [e.target.name]: e.target.value });
   };
 
-  /* ===== GUARDAR CAMBIOS ===== */
+  /* ===== GUARDAR CAMBIOS PRODUCTO ===== */
   const actualizarProducto = async () => {
-    if (!form.nombre.trim() || !form.categoria.trim() || form.precio === "" || form.stock === "") {
+    const { nombre, categoria, precio, stock } = nuevoProducto;
+
+    if (!nombre.trim() || !categoria.trim() || precio === "" || stock === "") {
       alert("Todos los campos son obligatorios");
       return;
     }
 
     try {
       const res = await axios.put(`${API_URL}/api/productos/${editarProducto._id}`, {
-        ...form,
-        precio: Number(form.precio),
-        stock: Number(form.stock),
+        nombre,
+        categoria,
+        precio: Number(precio),
+        stock: Number(stock),
       });
 
       setProductos(productos.map((p) => (p._id === res.data._id ? res.data : p)));
       setEditarProducto(null);
-    } catch {
+      setNuevoProducto({ nombre: "", categoria: "", precio: "", stock: "" });
+    } catch (err) {
+      console.error(err);
       alert("Error al actualizar producto");
     }
   };
@@ -86,6 +116,43 @@ export default function ListaProductos() {
 
       {error && <p className="error">{error}</p>}
 
+      {/* ===== FORM AGREGAR PRODUCTO ===== */}
+      {!editarProducto && (
+        <div className="form-agregar">
+          <h3>Agregar producto</h3>
+          <input
+            type="text"
+            name="nombre"
+            placeholder="Nombre"
+            value={nuevoProducto.nombre}
+            onChange={handleChange}
+          />
+          <input
+            type="text"
+            name="categoria"
+            placeholder="Categoría"
+            value={nuevoProducto.categoria}
+            onChange={handleChange}
+          />
+          <input
+            type="number"
+            name="precio"
+            placeholder="Precio"
+            value={nuevoProducto.precio}
+            onChange={handleChange}
+          />
+          <input
+            type="number"
+            name="stock"
+            placeholder="Stock"
+            value={nuevoProducto.stock}
+            onChange={handleChange}
+          />
+          <button onClick={handleAgregarProducto}>Agregar producto</button>
+        </div>
+      )}
+
+      {/* ===== TABLA DE PRODUCTOS ===== */}
       {productos.length === 0 ? (
         <p className="empty">No hay productos registrados</p>
       ) : (
@@ -126,25 +193,34 @@ export default function ListaProductos() {
           <div className="form-editar" onClick={(e) => e.stopPropagation()}>
             <h3>Editar producto</h3>
 
-            <label>
-              Nombre
-              <input name="nombre" value={form.nombre} onChange={handleChange} />
-            </label>
-
-            <label>
-              Categoría
-              <input name="categoria" value={form.categoria} onChange={handleChange} />
-            </label>
-
-            <label>
-              Precio
-              <input type="number" name="precio" value={form.precio} onChange={handleChange} />
-            </label>
-
-            <label>
-              Stock
-              <input type="number" name="stock" value={form.stock} onChange={handleChange} />
-            </label>
+            <input
+              type="text"
+              name="nombre"
+              placeholder="Nombre"
+              value={nuevoProducto.nombre}
+              onChange={handleChange}
+            />
+            <input
+              type="text"
+              name="categoria"
+              placeholder="Categoría"
+              value={nuevoProducto.categoria}
+              onChange={handleChange}
+            />
+            <input
+              type="number"
+              name="precio"
+              placeholder="Precio"
+              value={nuevoProducto.precio}
+              onChange={handleChange}
+            />
+            <input
+              type="number"
+              name="stock"
+              placeholder="Stock"
+              value={nuevoProducto.stock}
+              onChange={handleChange}
+            />
 
             <div className="modal-actions">
               <button className="btn-save" onClick={actualizarProducto}>
