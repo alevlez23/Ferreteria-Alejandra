@@ -11,7 +11,7 @@ conectarDB();
 
 /* ===== MIDDLEWARE ===== */
 app.use(cors({
-  origin: "*",   // permite celular y laptop
+  origin: "*",   // permite solicitudes desde cualquier origen
   methods: ["GET", "POST", "PUT", "DELETE"],
 }));
 app.use(express.json());

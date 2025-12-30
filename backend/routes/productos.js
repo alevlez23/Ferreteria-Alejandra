@@ -33,7 +33,6 @@ router.post("/", async (req, res) => {
     });
 
     await movimiento.save();
-
     res.status(201).json(productoGuardado);
   } catch (error) {
     res.status(500).json({ msg: "Error al crear producto" });
@@ -44,9 +43,7 @@ router.post("/", async (req, res) => {
 router.put("/:id", async (req, res) => {
   try {
     const producto = await Producto.findById(req.params.id);
-    if (!producto) {
-      return res.status(404).json({ msg: "Producto no encontrado" });
-    }
+    if (!producto) return res.status(404).json({ msg: "Producto no encontrado" });
 
     const stockAnterior = producto.stock;
 
@@ -61,12 +58,7 @@ router.put("/:id", async (req, res) => {
       const tipo = actualizado.stock > stockAnterior ? "entrada" : "salida";
       const cantidad = Math.abs(actualizado.stock - stockAnterior);
 
-      await new Movimiento({
-        producto: actualizado._id,
-        tipo,
-        cantidad,
-        fecha: new Date(),
-      }).save();
+      await new Movimiento({ producto: actualizado._id, tipo, cantidad, fecha: new Date() }).save();
     }
 
     res.json(actualizado);
@@ -79,9 +71,7 @@ router.put("/:id", async (req, res) => {
 router.delete("/:id", async (req, res) => {
   try {
     const eliminado = await Producto.findByIdAndDelete(req.params.id);
-    if (!eliminado) {
-      return res.status(404).json({ msg: "Producto no encontrado" });
-    }
+    if (!eliminado) return res.status(404).json({ msg: "Producto no encontrado" });
     res.json({ msg: "Producto eliminado" });
   } catch (error) {
     res.status(500).json({ msg: "Error al eliminar producto" });
