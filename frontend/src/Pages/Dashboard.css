@@ -1,0 +1,123 @@
+/* ===== LAYOUT GENERAL ===== */
+.layout {
+  display: flex;
+  width: 100%;
+  min-height: 100vh;
+}
+
+/* ===== CONTENIDO PRINCIPAL ===== */
+.content {
+  flex: 1;
+  min-height: 100vh;
+  background: radial-gradient(circle at top, #020b5a, #000);
+  color: white;
+}
+
+/* ===== SECCION BIENVENIDA ===== */
+.welcome-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 28px;
+  text-align: center;
+  padding: 30px;
+}
+
+/* ===== TITULO ===== */
+.welcome-title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px 30px;
+
+  background: linear-gradient(
+    160deg,
+    rgba(10, 35, 90, 0.85),
+    rgba(0, 15, 45, 0.75)
+  );
+
+  border-radius: 25px;
+
+  box-shadow:
+    0 0 30px rgba(0, 188, 212, 0.45),
+    inset 0 0 10px rgba(255, 255, 255, 0.06);
+
+  backdrop-filter: blur(8px);
+}
+
+/* ===== FERRETERÍA ===== */
+.brand-small {
+  font-size: 16px;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  color: rgba(190, 215, 240, 0.85);
+}
+
+/* ===== LINEA DECORATIVA ===== */
+.brand-line {
+  width: 100px;
+  height: 2px;
+  margin: 10px 0;
+
+  background: linear-gradient(
+    to right,
+    transparent,
+    #00bcd4,
+    transparent
+  );
+
+  border-radius: 2px;
+}
+
+/* ===== ALEJANDRA ===== */
+.brand-big {
+  font-size: 30px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  color: #ffffff;
+
+  text-shadow:
+    0 0 16px rgba(0, 188, 212, 0.45),
+    0 0 35px rgba(0, 188, 212, 0.25);
+}
+
+/* ===== IMAGEN ===== */
+.welcome-image {
+  width: 85%;
+  max-width: 950px;
+  height: auto;
+  border-radius: 18px;
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.65);
+}
+
+/* ===== SECCIONES ===== */
+.productos-container,
+.movimientos-container {
+  padding: 30px;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .welcome-title {
+    padding: 15px 45px;
+  }
+
+  .brand-small {
+    font-size: 10px;
+    letter-spacing: 3px;
+  }
+
+  .brand-big {
+    font-size: 20px;
+  }
+
+  .brand-line {
+    width: 45px;
+  }
+
+  .welcome-image {
+    width: 100%;
+  }
+}
