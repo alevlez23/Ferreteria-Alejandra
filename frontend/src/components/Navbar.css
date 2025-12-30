@@ -1,0 +1,111 @@
+/* ===== SIDEBAR ===== */
+.sidebar {
+  width: 240px;
+  min-height: 100vh;
+  background: linear-gradient(180deg, #000814, #000814);
+  color: white;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 4px 0 20px rgba(0, 255, 255, 0.35);
+}
+
+/* ===== TITULO ===== */
+.sidebar h2 {
+  font-size: 15px;
+  font-weight: 500;
+  color: #e0e0e0;
+  text-align: center;
+  margin-bottom: 30px;
+  letter-spacing: 1.3px;
+}
+
+/* ===== MENU ===== */
+.sidebar nav {
+  flex: 1;
+}
+
+.sidebar nav button {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 15px;
+  margin-bottom: 10px;
+  background: transparent;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 14px;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.3s ease;
+}
+
+/* Hover */
+.sidebar nav button:hover {
+  background: rgba(0, 255, 255, 0.25);
+  transform: translateX(5px);
+  box-shadow: 0 0 10px rgba(0, 255, 255, 0.6);
+}
+
+/* Activo */
+.sidebar nav button.active {
+  background: rgba(0, 255, 255, 0.35);
+  box-shadow: 0 0 12px cyan;
+}
+
+/* Iconos menu */
+.sidebar nav button svg {
+  font-size: 18px;
+}
+
+/* ===== LOGOUT (AJUSTADO) ===== */
+.logout {
+  margin-top: auto;
+  padding: 11px 15px;
+  background: transparent;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;              /* más pequeño */
+  transition: all 0.3s ease;
+  opacity: 0.85;                /* más discreto */
+}
+
+/* Icono logout más pequeño */
+.logout svg {
+  font-size: 16px;
+}
+
+.logout:hover {
+  background: rgba(0, 255, 255, 0.25);
+  box-shadow: 0 0 10px rgba(0, 255, 255, 0.25);
+  opacity: 1;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 70px;
+    padding: 15px 10px;
+  }
+
+  .sidebar h2 {
+    display: none;
+  }
+
+  .sidebar nav button,
+  .logout {
+    justify-content: center;
+  }
+
+  .sidebar nav button span,
+  .logout span {
+    display: none;
+  }
+}

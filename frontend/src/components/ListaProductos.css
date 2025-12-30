@@ -1,0 +1,101 @@
+/* ===== MODAL FONDO ===== */
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+/* ===== CARD EDITAR ===== */
+.form-editar {
+  background: #020b2d;
+  width: 420px;
+  padding: 28px;
+  border-radius: 16px;
+  box-shadow: 0 0 40px rgba(0, 229, 255, 0.35);
+  color: white;
+  animation: pop 0.25s ease;
+}
+
+/* ANIMACIÓN */
+@keyframes pop {
+  from {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* ===== TITULO ===== */
+.form-editar h3 {
+  text-align: center;
+  color: #00e5ff;
+  margin-bottom: 22px;
+  font-size: 20px;
+}
+
+/* ===== CAMPOS ===== */
+.form-editar label {
+  display: block;
+  margin-bottom: 14px;
+  font-size: 13px;
+  color: #b5eaff;
+}
+
+.form-editar input {
+  width: 100%;
+  padding: 12px;
+  margin-top: 6px;
+  background: #01071f;
+  border: 1px solid #00e5ff;
+  border-radius: 10px;
+  color: white;
+  font-size: 14px;
+}
+
+.form-editar input:focus {
+  outline: none;
+  box-shadow: 0 0 8px #00e5ff;
+}
+
+/* ===== BOTONES ===== */
+.modal-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 25px;
+}
+
+.btn-save {
+  flex: 1;
+  padding: 12px;
+  background: linear-gradient(135deg, #00e5ff, #00bcd4);
+  border: none;
+  border-radius: 12px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.btn-save:hover {
+  filter: brightness(1.1);
+}
+
+.btn-cancel {
+  flex: 1;
+  padding: 12px;
+  background: #ff1744;
+  border: none;
+  border-radius: 12px;
+  color: white;
+  cursor: pointer;
+}
+
+.btn-cancel:hover {
+  filter: brightness(1.1);
+}
