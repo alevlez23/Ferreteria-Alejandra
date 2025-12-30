@@ -2,8 +2,6 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import "./ListaProductos.css";
 
-const API_URL = "http://192.168.1.23:3000";
-
 export default function ListaProductos() {
   const [productos, setProductos] = useState([]);
   const [error, setError] = useState("");
@@ -16,6 +14,8 @@ export default function ListaProductos() {
     stock: "",
   });
 
+  const API_URL = import.meta.env.VITE_API_URL; // Ahora apunta al backend en Render
+
   /* ===== OBTENER PRODUCTOS ===== */
   useEffect(() => {
     obtenerProductos();
@@ -27,6 +27,7 @@ export default function ListaProductos() {
       setProductos(res.data);
     } catch (err) {
       setError("Error al cargar los productos");
+      console.error(err);
     }
   };
 
@@ -81,9 +82,7 @@ export default function ListaProductos() {
       );
 
       setProductos(
-        productos.map((p) =>
-          p._id === res.data._id ? res.data : p
-        )
+        productos.map((p) => (p._id === res.data._id ? res.data : p))
       );
 
       setEditarProducto(null);
