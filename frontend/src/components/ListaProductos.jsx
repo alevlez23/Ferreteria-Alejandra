@@ -14,22 +14,22 @@ export default function ListaProductos() {
     stock: "",
   });
 
-  const API_URL = import.meta.env.VITE_API_URL; // Ahora apunta al backend en Render
+  // 🔹 Usar la URL del backend desde la variable de entorno
+  const API_URL = import.meta.env.VITE_API_URL;
 
   /* ===== OBTENER PRODUCTOS ===== */
   useEffect(() => {
+    const obtenerProductos = async () => {
+      try {
+        const res = await axios.get(`${API_URL}/api/productos`);
+        setProductos(res.data);
+      } catch (err) {
+        console.error(err);
+        setError("Error al cargar los productos");
+      }
+    };
     obtenerProductos();
-  }, []);
-
-  const obtenerProductos = async () => {
-    try {
-      const res = await axios.get(`${API_URL}/api/productos`);
-      setProductos(res.data);
-    } catch (err) {
-      setError("Error al cargar los productos");
-      console.error(err);
-    }
-  };
+  }, [API_URL]);
 
   /* ===== ELIMINAR ===== */
   const eliminarProducto = async (id) => {
@@ -61,30 +61,19 @@ export default function ListaProductos() {
 
   /* ===== GUARDAR CAMBIOS ===== */
   const actualizarProducto = async () => {
-    if (
-      !form.nombre.trim() ||
-      !form.categoria.trim() ||
-      form.precio === "" ||
-      form.stock === ""
-    ) {
+    if (!form.nombre.trim() || !form.categoria.trim() || form.precio === "" || form.stock === "") {
       alert("Todos los campos son obligatorios");
       return;
     }
 
     try {
-      const res = await axios.put(
-        `${API_URL}/api/productos/${editarProducto._id}`,
-        {
-          ...form,
-          precio: Number(form.precio),
-          stock: Number(form.stock),
-        }
-      );
+      const res = await axios.put(`${API_URL}/api/productos/${editarProducto._id}`, {
+        ...form,
+        precio: Number(form.precio),
+        stock: Number(form.stock),
+      });
 
-      setProductos(
-        productos.map((p) => (p._id === res.data._id ? res.data : p))
-      );
-
+      setProductos(productos.map((p) => (p._id === res.data._id ? res.data : p)));
       setEditarProducto(null);
     } catch {
       alert("Error al actualizar producto");
@@ -118,16 +107,10 @@ export default function ListaProductos() {
                 <td>${p.precio}</td>
                 <td>{p.stock}</td>
                 <td>
-                  <button
-                    className="btn-edit"
-                    onClick={() => abrirEditar(p)}
-                  >
+                  <button className="btn-edit" onClick={() => abrirEditar(p)}>
                     Editar
                   </button>
-                  <button
-                    className="btn-delete"
-                    onClick={() => eliminarProducto(p._id)}
-                  >
+                  <button className="btn-delete" onClick={() => eliminarProducto(p._id)}>
                     Eliminar
                   </button>
                 </td>
@@ -140,58 +123,34 @@ export default function ListaProductos() {
       {/* ===== MODAL EDITAR ===== */}
       {editarProducto && (
         <div className="modal" onClick={() => setEditarProducto(null)}>
-          <div
-            className="form-editar"
-            onClick={(e) => e.stopPropagation()}
-          >
+          <div className="form-editar" onClick={(e) => e.stopPropagation()}>
             <h3>Editar producto</h3>
 
             <label>
               Nombre
-              <input
-                name="nombre"
-                value={form.nombre}
-                onChange={handleChange}
-              />
+              <input name="nombre" value={form.nombre} onChange={handleChange} />
             </label>
 
             <label>
               Categoría
-              <input
-                name="categoria"
-                value={form.categoria}
-                onChange={handleChange}
-              />
+              <input name="categoria" value={form.categoria} onChange={handleChange} />
             </label>
 
             <label>
               Precio
-              <input
-                type="number"
-                name="precio"
-                value={form.precio}
-                onChange={handleChange}
-              />
+              <input type="number" name="precio" value={form.precio} onChange={handleChange} />
             </label>
 
             <label>
               Stock
-              <input
-                type="number"
-                name="stock"
-                value={form.stock}
-                onChange={handleChange}
-              />
+              <input type="number" name="stock" value={form.stock} onChange={handleChange} />
             </label>
 
             <div className="modal-actions">
               <button className="btn-save" onClick={actualizarProducto}>
                 Guardar cambios
               </button>
-              <button
-                className="btn-cancel"
-                onClick={() => setEditarProducto(null)}
-              >
+              <button className="btn-cancel" onClick={() => setEditarProducto(null)}>
                 Cancelar
               </button>
             </div>
