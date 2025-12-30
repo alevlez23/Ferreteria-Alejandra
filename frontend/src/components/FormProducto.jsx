@@ -14,52 +14,85 @@ export default function ListaProductos() {
     stock: "",
   });
 
-  const API_URL = import.meta.env.VITE_API_URL;
+  // API URL con fallback para producción
+  const API_URL =
+    import.meta.env.VITE_API_URL ||
+    "https://ferreteria-alejandra.onrender.com";
 
+  /* ===== OBTENER PRODUCTOS ===== */
   useEffect(() => {
     const obtenerProductos = async () => {
       try {
         const res = await axios.get(`${API_URL}/api/productos`);
         setProductos(res.data);
+        setError("");
       } catch (err) {
-        console.error(err);
+        console.error("Error al cargar productos:", err);
         setError("Error al cargar los productos");
       }
     };
+
     obtenerProductos();
   }, [API_URL]);
 
+  /* ===== ELIMINAR ===== */
   const eliminarProducto = async (id) => {
     if (!window.confirm("¿Eliminar producto definitivamente?")) return;
+
     try {
       await axios.delete(`${API_URL}/api/productos/${id}`);
       setProductos(productos.filter((p) => p._id !== id));
-    } catch {
+    } catch (err) {
+      console.error("Error al eliminar:", err);
       alert("Error al eliminar producto");
     }
   };
 
+  /* ===== ABRIR EDITAR ===== */
   const abrirEditar = (producto) => {
     setEditarProducto(producto);
-    setForm({ nombre: producto.nombre, categoria: producto.categoria, precio: producto.precio, stock: producto.stock });
+    setForm({
+      nombre: producto.nombre,
+      categoria: producto.categoria,
+      precio: producto.precio,
+      stock: producto.stock,
+    });
   };
 
-  const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
+  /* ===== INPUTS ===== */
+  const handleChange = (e) =>
+    setForm({ ...form, [e.target.name]: e.target.value });
 
+  /* ===== ACTUALIZAR ===== */
   const actualizarProducto = async () => {
-    if (!form.nombre.trim() || !form.categoria.trim() || form.precio === "" || form.stock === "") {
+    if (
+      !form.nombre.trim() ||
+      !form.categoria.trim() ||
+      form.precio === "" ||
+      form.stock === ""
+    ) {
       alert("Todos los campos son obligatorios");
       return;
     }
+
     try {
-      const res = await axios.put(`${API_URL}/api/productos/${editarProducto._id}`, {
-        ...form,
-        precio: Number(form.precio),
-        stock: Number(form.stock),
-      });
-      setProductos(productos.map((p) => (p._id === res.data._id ? res.data : p)));
+      const res = await axios.put(
+        `${API_URL}/api/productos/${editarProducto._id}`,
+        {
+          ...form,
+          precio: Number(form.precio),
+          stock: Number(form.stock),
+        }
+      );
+
+      setProductos(
+        productos.map((p) =>
+          p._id === res.data._id ? res.data : p
+        )
+      );
       setEditarProducto(null);
-    } catch {
+    } catch (err) {
+      console.error("Error al actualizar:", err);
       alert("Error al actualizar producto");
     }
   };
@@ -67,7 +100,9 @@ export default function ListaProductos() {
   return (
     <div className="card">
       <h2>Inventario</h2>
+
       {error && <p className="error">{error}</p>}
+
       {productos.length === 0 ? (
         <p className="empty">No hay productos registrados</p>
       ) : (
@@ -89,25 +124,82 @@ export default function ListaProductos() {
                 <td>${p.precio}</td>
                 <td>{p.stock}</td>
                 <td>
-                  <button className="btn-edit" onClick={() => abrirEditar(p)}>Editar</button>
-                  <button className="btn-delete" onClick={() => eliminarProducto(p._id)}>Eliminar</button>
+                  <button
+                    className="btn-edit"
+                    onClick={() => abrirEditar(p)}
+                  >
+                    Editar
+                  </button>
+                  <button
+                    className="btn-delete"
+                    onClick={() => eliminarProducto(p._id)}
+                  >
+                    Eliminar
+                  </button>
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
       )}
+
+      {/* ===== MODAL EDITAR ===== */}
       {editarProducto && (
         <div className="modal" onClick={() => setEditarProducto(null)}>
-          <div className="form-editar" onClick={(e) => e.stopPropagation()}>
+          <div
+            className="form-editar"
+            onClick={(e) => e.stopPropagation()}
+          >
             <h3>Editar producto</h3>
-            <label>Nombre<input name="nombre" value={form.nombre} onChange={handleChange} /></label>
-            <label>Categoría<input name="categoria" value={form.categoria} onChange={handleChange} /></label>
-            <label>Precio<input type="number" name="precio" value={form.precio} onChange={handleChange} /></label>
-            <label>Stock<input type="number" name="stock" value={form.stock} onChange={handleChange} /></label>
+
+            <label>
+              Nombre
+              <input
+                name="nombre"
+                value={form.nombre}
+                onChange={handleChange}
+              />
+            </label>
+
+            <label>
+              Categoría
+              <input
+                name="categoria"
+                value={form.categoria}
+                onChange={handleChange}
+              />
+            </label>
+
+            <label>
+              Precio
+              <input
+                type="number"
+                name="precio"
+                value={form.precio}
+                onChange={handleChange}
+              />
+            </label>
+
+            <label>
+              Stock
+              <input
+                type="number"
+                name="stock"
+                value={form.stock}
+                onChange={handleChange}
+              />
+            </label>
+
             <div className="modal-actions">
-              <button className="btn-save" onClick={actualizarProducto}>Guardar cambios</button>
-              <button className="btn-cancel" onClick={() => setEditarProducto(null)}>Cancelar</button>
+              <button className="btn-save" onClick={actualizarProducto}>
+                Guardar cambios
+              </button>
+              <button
+                className="btn-cancel"
+                onClick={() => setEditarProducto(null)}
+              >
+                Cancelar
+              </button>
             </div>
           </div>
         </div>

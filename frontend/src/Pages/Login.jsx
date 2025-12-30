@@ -9,6 +9,11 @@ export default function Login() {
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
+  // API URL con fallback para producción
+  const API_URL =
+    import.meta.env.VITE_API_URL ||
+    "https://ferreteria-alejandra.onrender.com";
+
   const handleLogin = async (e) => {
     e.preventDefault();
     setError("");
@@ -21,19 +26,24 @@ export default function Login() {
     try {
       // 🔐 Petición al backend
       const res = await axios.post(
-        `${import.meta.env.VITE_API_URL}/api/auth/login`,
+        `${API_URL}/api/auth/login`,
         { usuario, password }
       );
 
-      // 💾 Guardar usuario en sesión
-      localStorage.setItem("user", JSON.stringify(res.data.usuario));
+      //  Guardar usuario en sesión
+      localStorage.setItem(
+        "user",
+        JSON.stringify(res.data.usuario)
+      );
 
-      // 👉 Redirigir al dashboard
+      // Redirigir al dashboard
       navigate("/dashboard");
 
     } catch (err) {
+      console.error("Error de login:", err);
       setError(
-        err.response?.data?.msg || "Usuario o contraseña incorrectos"
+        err.response?.data?.msg ||
+        "Usuario o contraseña incorrectos"
       );
     }
   };
