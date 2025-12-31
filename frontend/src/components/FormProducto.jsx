@@ -1,10 +1,10 @@
 import { useState } from "react";
 import axios from "axios";
-import "./FormProducto.css";
+import "./Inventario.css";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
-export default function FormProducto({ onAgregar }) {
+export default function FormProducto() {
   const [form, setForm] = useState({
     nombre: "",
     categoria: "",
@@ -14,55 +14,44 @@ export default function FormProducto({ onAgregar }) {
   const [error, setError] = useState("");
   const [mensaje, setMensaje] = useState("");
 
-  const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  };
+  const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     if (!form.nombre.trim() || !form.categoria.trim() || !form.precio || !form.stock) {
       setError("Todos los campos son obligatorios");
       setMensaje("");
       return;
     }
-
     if (Number(form.precio) <= 0 || Number(form.stock) < 0) {
-      setError("Precio y stock deben ser valores válidos");
+      setError("Precio y stock deben ser válidos");
       setMensaje("");
       return;
     }
-
     try {
       await axios.post(`${API_URL}/api/productos`, {
         ...form,
         precio: Number(form.precio),
         stock: Number(form.stock),
       });
-
       setMensaje("Producto registrado correctamente");
       setError("");
       setForm({ nombre: "", categoria: "", precio: "", stock: "" });
-
-      if (onAgregar) onAgregar(); // avisar al padre para actualizar la lista
-    } catch (err) {
-      console.error(err);
+    } catch {
       setError("Error al registrar el producto");
       setMensaje("");
     }
   };
 
   return (
-    <form className="card form-producto" onSubmit={handleSubmit}>
+    <form className="card" onSubmit={handleSubmit}>
       <h2>Registrar Producto</h2>
       {error && <p className="error">{error}</p>}
       {mensaje && <p className="success">{mensaje}</p>}
-
-      <input type="text" name="nombre" placeholder="Nombre" value={form.nombre} onChange={handleChange} />
-      <input type="text" name="categoria" placeholder="Categoría" value={form.categoria} onChange={handleChange} />
-      <input type="number" name="precio" placeholder="Precio" value={form.precio} onChange={handleChange} />
-      <input type="number" name="stock" placeholder="Stock" value={form.stock} onChange={handleChange} />
-
+      <input type="text" name="nombre" placeholder="Nombre" value={form.nombre} onChange={handleChange}/>
+      <input type="text" name="categoria" placeholder="Categoría" value={form.categoria} onChange={handleChange}/>
+      <input type="number" name="precio" placeholder="Precio" value={form.precio} onChange={handleChange}/>
+      <input type="number" name="stock" placeholder="Stock" value={form.stock} onChange={handleChange}/>
       <button type="submit">Guardar</button>
     </form>
   );

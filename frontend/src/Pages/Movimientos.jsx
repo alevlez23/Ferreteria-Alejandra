@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import "./Movimientos.css";
+import "../components/Inventario.css"; // 
 
 export default function Movimientos() {
   const [movimientos, setMovimientos] = useState([]);
@@ -25,48 +25,39 @@ export default function Movimientos() {
   }, []);
 
   return (
-    <div className="table-card">
-      <h3>Movimientos de Inventario</h3>
+    <div className="card">
+      <h2>Movimientos de Inventario</h2>
 
       {error && <p className="error">{error}</p>}
 
-      <table>
-        <thead>
-          <tr>
-            <th>Producto</th>
-            <th>Tipo</th>
-            <th>Cantidad</th>
-            <th>Fecha</th>
-          </tr>
-        </thead>
-
-        <tbody>
-          {movimientos.length === 0 ? (
+      {movimientos.length === 0 ? (
+        <p className="empty">No hay movimientos registrados</p>
+      ) : (
+        <table>
+          <thead>
             <tr>
-              <td colSpan="4" className="empty">
-                No hay movimientos registrados
-              </td>
+              <th>Producto</th>
+              <th>Tipo</th>
+              <th>Cantidad</th>
+              <th>Fecha</th>
             </tr>
-          ) : (
-            movimientos.map((m) => (
+          </thead>
+          <tbody>
+            {movimientos.map((m) => (
               <tr key={m._id}>
                 <td>{m.producto?.nombre || "Producto eliminado"}</td>
                 <td className={m.tipo === "entrada" ? "entrada" : "salida"}>
                   {m.tipo}
                 </td>
                 <td>
-                  {m.tipo === "entrada"
-                    ? `+${m.cantidad}`
-                    : `-${m.cantidad}`}
+                  {m.tipo === "entrada" ? `+${m.cantidad}` : `-${m.cantidad}`}
                 </td>
-                <td>
-                  {new Date(m.fecha).toLocaleDateString("es-EC")}
-                </td>
+                <td>{new Date(m.fecha).toLocaleDateString("es-EC")}</td>
               </tr>
-            ))
-          )}
-        </tbody>
-      </table>
+            ))}
+          </tbody>
+        </table>
+      )}
     </div>
   );
 }

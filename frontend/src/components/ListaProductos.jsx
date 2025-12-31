@@ -1,12 +1,18 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import "./ListaProductos.css";
+import "./Inventario.css";
 
-export default function ListaProductos({ actualizar }) {
+export default function ListaProductos() {
   const [productos, setProductos] = useState([]);
   const [error, setError] = useState("");
   const [editarProducto, setEditarProducto] = useState(null);
-  const [form, setForm] = useState({ nombre: "", categoria: "", precio: "", stock: "" });
+
+  const [form, setForm] = useState({
+    nombre: "",
+    categoria: "",
+    precio: "",
+    stock: "",
+  });
 
   const API_URL = import.meta.env.VITE_API_URL;
 
@@ -17,20 +23,21 @@ export default function ListaProductos({ actualizar }) {
         setProductos(res.data);
         setError("");
       } catch (err) {
-        console.error(err);
+        console.error("Error al cargar productos:", err);
         setError("Error al cargar los productos");
       }
     };
     obtenerProductos();
-  }, [actualizar]);
+  }, []);
 
   const eliminarProducto = async (id) => {
     if (!window.confirm("¿Eliminar producto definitivamente?")) return;
+
     try {
       await axios.delete(`${API_URL}/api/productos/${id}`);
       setProductos(productos.filter((p) => p._id !== id));
     } catch (err) {
-      console.error(err);
+      console.error("Error al eliminar:", err);
       alert("Error al eliminar producto");
     }
   };
@@ -45,31 +52,35 @@ export default function ListaProductos({ actualizar }) {
     });
   };
 
-  const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
+  const handleChange = (e) =>
+    setForm({ ...form, [e.target.name]: e.target.value });
 
   const actualizarProducto = async () => {
     if (!form.nombre.trim() || !form.categoria.trim() || form.precio === "" || form.stock === "") {
       alert("Todos los campos son obligatorios");
       return;
     }
+
     try {
       const res = await axios.put(`${API_URL}/api/productos/${editarProducto._id}`, {
         ...form,
         precio: Number(form.precio),
         stock: Number(form.stock),
       });
+
       setProductos(productos.map((p) => (p._id === res.data._id ? res.data : p)));
       setEditarProducto(null);
     } catch (err) {
-      console.error(err);
+      console.error("Error al actualizar:", err);
       alert("Error al actualizar producto");
     }
   };
 
   return (
-    <div className="card lista-productos">
+    <div className="card">
       <h2>Inventario</h2>
       {error && <p className="error">{error}</p>}
+
       {productos.length === 0 ? (
         <p className="empty">No hay productos registrados</p>
       ) : (
@@ -102,14 +113,14 @@ export default function ListaProductos({ actualizar }) {
 
       {editarProducto && (
         <div className="modal" onClick={() => setEditarProducto(null)}>
-          <div className="form-editar" onClick={(e) => e.stopPropagation()}>
+          <div className="modal-card" onClick={(e) => e.stopPropagation()}>
             <h3>Editar producto</h3>
-            <label>Nombre<input name="nombre" value={form.nombre} onChange={handleChange} /></label>
-            <label>Categoría<input name="categoria" value={form.categoria} onChange={handleChange} /></label>
-            <label>Precio<input type="number" name="precio" value={form.precio} onChange={handleChange} /></label>
-            <label>Stock<input type="number" name="stock" value={form.stock} onChange={handleChange} /></label>
+            <input name="nombre" value={form.nombre} onChange={handleChange} placeholder="Nombre"/>
+            <input name="categoria" value={form.categoria} onChange={handleChange} placeholder="Categoría"/>
+            <input type="number" name="precio" value={form.precio} onChange={handleChange} placeholder="Precio"/>
+            <input type="number" name="stock" value={form.stock} onChange={handleChange} placeholder="Stock"/>
             <div className="modal-actions">
-              <button className="btn-save" onClick={actualizarProducto}>Guardar cambios</button>
+              <button className="btn-save" onClick={actualizarProducto}>Guardar</button>
               <button className="btn-cancel" onClick={() => setEditarProducto(null)}>Cancelar</button>
             </div>
           </div>
