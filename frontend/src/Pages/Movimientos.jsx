@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import "../components/Inventario.css"; // 
+import "./Movimientos.css";
 
 export default function Movimientos() {
   const [movimientos, setMovimientos] = useState([]);
   const [error, setError] = useState("");
 
-  /* ===== OBTENER MOVIMIENTOS ===== */
+  // Obtener movimientos
   useEffect(() => {
     const obtenerMovimientos = async () => {
       try {
@@ -20,44 +20,44 @@ export default function Movimientos() {
         setError("Error al cargar los movimientos");
       }
     };
-
     obtenerMovimientos();
   }, []);
 
   return (
-    <div className="card">
-      <h2>Movimientos de Inventario</h2>
+    <div className="movimientos-container">
+      <h2 className="titulo">Movimientos de Inventario</h2>
 
       {error && <p className="error">{error}</p>}
 
-      {movimientos.length === 0 ? (
-        <p className="empty">No hay movimientos registrados</p>
-      ) : (
-        <table>
-          <thead>
-            <tr>
-              <th>Producto</th>
-              <th>Tipo</th>
-              <th>Cantidad</th>
-              <th>Fecha</th>
-            </tr>
-          </thead>
-          <tbody>
-            {movimientos.map((m) => (
-              <tr key={m._id}>
-                <td>{m.producto?.nombre || "Producto eliminado"}</td>
-                <td className={m.tipo === "entrada" ? "entrada" : "salida"}>
-                  {m.tipo}
-                </td>
-                <td>
+      <div className="movimientos-grid">
+        {movimientos.length === 0 ? (
+          <p className="empty">No hay movimientos registrados</p>
+        ) : (
+          movimientos.map((m) => (
+            <div
+              className={`movimiento-card ${
+                m.tipo === "entrada" ? "entrada" : "salida"
+              }`}
+              key={m._id}
+            >
+              <div className="mov-info">
+                <h3>{m.producto?.nombre || "Producto eliminado"}</h3>
+                <p>
+                  <strong>Tipo:</strong> {m.tipo}
+                </p>
+                <p>
+                  <strong>Cantidad:</strong>{" "}
                   {m.tipo === "entrada" ? `+${m.cantidad}` : `-${m.cantidad}`}
-                </td>
-                <td>{new Date(m.fecha).toLocaleDateString("es-EC")}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      )}
+                </p>
+                <p>
+                  <strong>Fecha:</strong>{" "}
+                  {new Date(m.fecha).toLocaleDateString("es-EC")}
+                </p>
+              </div>
+            </div>
+          ))
+        )}
+      </div>
     </div>
   );
 }
