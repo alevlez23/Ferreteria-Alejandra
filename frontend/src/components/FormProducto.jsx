@@ -1,208 +1,69 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import axios from "axios";
-import "./ListaProductos.css";
+import "./FormProducto.css";
 
-export default function ListaProductos() {
-  const [productos, setProductos] = useState([]);
-  const [error, setError] = useState("");
-  const [editarProducto, setEditarProducto] = useState(null);
+const API_URL = import.meta.env.VITE_API_URL;
 
+export default function FormProducto({ onAgregar }) {
   const [form, setForm] = useState({
     nombre: "",
     categoria: "",
     precio: "",
     stock: "",
   });
+  const [error, setError] = useState("");
+  const [mensaje, setMensaje] = useState("");
 
-  /* ===== OBTENER PRODUCTOS ===== */
-  useEffect(() => {
-    const obtenerProductos = async () => {
-      try {
-        const res = await axios.get(
-          `${import.meta.env.VITE_API_URL}/api/productos`
-        );
-        setProductos(res.data);
-        setError("");
-      } catch (err) {
-        console.error("Error al cargar productos:", err);
-        setError("Error al cargar los productos");
-      }
-    };
-
-    obtenerProductos();
-  }, []);
-
-  /* ===== ELIMINAR ===== */
-  const eliminarProducto = async (id) => {
-    if (!window.confirm("¿Eliminar producto definitivamente?")) return;
-
-    try {
-      await axios.delete(
-        `${import.meta.env.VITE_API_URL}/api/productos/${id}`
-      );
-      setProductos(productos.filter((p) => p._id !== id));
-    } catch (err) {
-      console.error("Error al eliminar:", err);
-      alert("Error al eliminar producto");
-    }
-  };
-
-  /* ===== ABRIR EDITAR ===== */
-  const abrirEditar = (producto) => {
-    setEditarProducto(producto);
-    setForm({
-      nombre: producto.nombre,
-      categoria: producto.categoria,
-      precio: producto.precio,
-      stock: producto.stock,
-    });
-  };
-
-  /* ===== INPUTS ===== */
-  const handleChange = (e) =>
+  const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
+  };
 
-  /* ===== ACTUALIZAR ===== */
-  const actualizarProducto = async () => {
-    if (
-      !form.nombre.trim() ||
-      !form.categoria.trim() ||
-      form.precio === "" ||
-      form.stock === ""
-    ) {
-      alert("Todos los campos son obligatorios");
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (!form.nombre.trim() || !form.categoria.trim() || !form.precio || !form.stock) {
+      setError("Todos los campos son obligatorios");
+      setMensaje("");
+      return;
+    }
+
+    if (Number(form.precio) <= 0 || Number(form.stock) < 0) {
+      setError("Precio y stock deben ser valores válidos");
+      setMensaje("");
       return;
     }
 
     try {
-      const res = await axios.put(
-        `${import.meta.env.VITE_API_URL}/api/productos/${editarProducto._id}`,
-        {
-          ...form,
-          precio: Number(form.precio),
-          stock: Number(form.stock),
-        }
-      );
+      await axios.post(`${API_URL}/api/productos`, {
+        ...form,
+        precio: Number(form.precio),
+        stock: Number(form.stock),
+      });
 
-      setProductos(
-        productos.map((p) =>
-          p._id === res.data._id ? res.data : p
-        )
-      );
-      setEditarProducto(null);
+      setMensaje("Producto registrado correctamente");
+      setError("");
+      setForm({ nombre: "", categoria: "", precio: "", stock: "" });
+
+      if (onAgregar) onAgregar(); // avisar al padre para actualizar la lista
     } catch (err) {
-      console.error("Error al actualizar:", err);
-      alert("Error al actualizar producto");
+      console.error(err);
+      setError("Error al registrar el producto");
+      setMensaje("");
     }
   };
 
   return (
-    <div className="card">
-      <h2>Inventario</h2>
-
+    <form className="card form-producto" onSubmit={handleSubmit}>
+      <h2>Registrar Producto</h2>
       {error && <p className="error">{error}</p>}
+      {mensaje && <p className="success">{mensaje}</p>}
 
-      {productos.length === 0 ? (
-        <p className="empty">No hay productos registrados</p>
-      ) : (
-        <table>
-          <thead>
-            <tr>
-              <th>Nombre</th>
-              <th>Categoría</th>
-              <th>Precio</th>
-              <th>Stock</th>
-              <th>Acciones</th>
-            </tr>
-          </thead>
-          <tbody>
-            {productos.map((p) => (
-              <tr key={p._id}>
-                <td>{p.nombre}</td>
-                <td>{p.categoria}</td>
-                <td>${p.precio}</td>
-                <td>{p.stock}</td>
-                <td>
-                  <button
-                    className="btn-edit"
-                    onClick={() => abrirEditar(p)}
-                  >
-                    Editar
-                  </button>
-                  <button
-                    className="btn-delete"
-                    onClick={() => eliminarProducto(p._id)}
-                  >
-                    Eliminar
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      )}
+      <input type="text" name="nombre" placeholder="Nombre" value={form.nombre} onChange={handleChange} />
+      <input type="text" name="categoria" placeholder="Categoría" value={form.categoria} onChange={handleChange} />
+      <input type="number" name="precio" placeholder="Precio" value={form.precio} onChange={handleChange} />
+      <input type="number" name="stock" placeholder="Stock" value={form.stock} onChange={handleChange} />
 
-      {/* ===== MODAL EDITAR ===== */}
-      {editarProducto && (
-        <div className="modal" onClick={() => setEditarProducto(null)}>
-          <div
-            className="form-editar"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <h3>Editar producto</h3>
-
-            <label>
-              Nombre
-              <input
-                name="nombre"
-                value={form.nombre}
-                onChange={handleChange}
-              />
-            </label>
-
-            <label>
-              Categoría
-              <input
-                name="categoria"
-                value={form.categoria}
-                onChange={handleChange}
-              />
-            </label>
-
-            <label>
-              Precio
-              <input
-                type="number"
-                name="precio"
-                value={form.precio}
-                onChange={handleChange}
-              />
-            </label>
-
-            <label>
-              Stock
-              <input
-                type="number"
-                name="stock"
-                value={form.stock}
-                onChange={handleChange}
-              />
-            </label>
-
-            <div className="modal-actions">
-              <button className="btn-save" onClick={actualizarProducto}>
-                Guardar cambios
-              </button>
-              <button
-                className="btn-cancel"
-                onClick={() => setEditarProducto(null)}
-              >
-                Cancelar
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-    </div>
+      <button type="submit">Guardar</button>
+    </form>
   );
 }
