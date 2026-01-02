@@ -6,7 +6,6 @@ export default function Movimientos() {
   const [movimientos, setMovimientos] = useState([]);
   const [error, setError] = useState("");
 
-  // Obtener movimientos
   useEffect(() => {
     const obtenerMovimientos = async () => {
       try {
@@ -16,10 +15,11 @@ export default function Movimientos() {
         setMovimientos(res.data);
         setError("");
       } catch (err) {
-        console.error("Error al cargar movimientos:", err);
+        console.error(err);
         setError("Error al cargar los movimientos");
       }
     };
+
     obtenerMovimientos();
   }, []);
 
@@ -29,31 +29,36 @@ export default function Movimientos() {
 
       {error && <p className="error">{error}</p>}
 
-      <div className="movimientos-grid">
+      <div className="movimientos-table">
+        <div className="movimientos-header">
+          <span>Producto</span>
+          <span>Tipo</span>
+          <span>Cantidad</span>
+          <span>Fecha</span>
+        </div>
+
         {movimientos.length === 0 ? (
           <p className="empty">No hay movimientos registrados</p>
         ) : (
           movimientos.map((m) => (
             <div
-              className={`movimiento-card ${
+              key={m._id}
+              className={`movimientos-row ${
                 m.tipo === "entrada" ? "entrada" : "salida"
               }`}
-              key={m._id}
             >
-              <div className="mov-info">
-                <h3>{m.producto?.nombre || "Producto eliminado"}</h3>
-                <p>
-                  <strong>Tipo:</strong> {m.tipo}
-                </p>
-                <p>
-                  <strong>Cantidad:</strong>{" "}
-                  {m.tipo === "entrada" ? `+${m.cantidad}` : `-${m.cantidad}`}
-                </p>
-                <p>
-                  <strong>Fecha:</strong>{" "}
-                  {new Date(m.fecha).toLocaleDateString("es-EC")}
-                </p>
-              </div>
+              <span>{m.producto?.nombre || "Producto eliminado"}</span>
+              <span className={`tipo ${m.tipo}`}>
+                {m.tipo.toUpperCase()}
+              </span>
+              <span>
+                {m.tipo === "entrada"
+                  ? `+${m.cantidad}`
+                  : `-${m.cantidad}`}
+              </span>
+              <span>
+                {new Date(m.fecha).toLocaleDateString("es-EC")}
+              </span>
             </div>
           ))
         )}
