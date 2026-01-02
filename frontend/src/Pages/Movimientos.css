@@ -1,69 +1,71 @@
 .movimientos-container {
-  padding: 20px;
-  max-width: 1200px;
-  margin: auto;
+  padding: 40px;
+  color: white;
 }
 
 .titulo {
   text-align: center;
-  color: #00e5ff;
   font-size: 28px;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
+  color: #00f7ff;
 }
 
-.movimientos-grid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-  justify-content: center;
-}
-
-.movimiento-card {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  padding: 20px;
+.movimientos-table {
   width: 100%;
-  max-width: 600px;
-  border-radius: 16px;
-  border: 2px solid #00e5ff;
-  background: #01071f;
-  color: white;
-  box-shadow: 0 0 15px rgba(0, 229, 255, 0.3);
-  transition: transform 0.2s;
+  max-width: 1000px;
+  margin: auto;
+  background: rgba(0, 0, 0, 0.4);
+  border-radius: 12px;
+  overflow: hidden;
 }
 
-.movimiento-card:hover {
-  transform: translateY(-4px);
+.movimientos-header,
+.movimientos-row {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  padding: 15px 20px;
+  align-items: center;
 }
 
-.movimiento-card.entrada {
-  border-left: 8px solid #28a745; /* verde */
+.movimientos-header {
+  background: rgba(0, 255, 255, 0.15);
+  font-weight: bold;
+  color: #00f7ff;
 }
 
-.movimiento-card.salida {
-  border-left: 8px solid crimson; /* rojo */
+.movimientos-row {
+  border-top: 1px solid rgba(0, 255, 255, 0.2);
 }
 
-.mov-info h3 {
-  margin-bottom: 8px;
-  color: #00e5ff;
+.movimientos-row:hover {
+  background: rgba(0, 255, 255, 0.08);
 }
 
-.mov-info p {
-  margin: 4px 0;
+.tipo.entrada {
+  color: #00ff88;
+  font-weight: bold;
+}
+
+.tipo.salida {
+  color: #ff4d4d;
+  font-weight: bold;
+}
+
+.entrada {
+  border-left: 4px solid #00ff88;
+}
+
+.salida {
+  border-left: 4px solid #ff4d4d;
+}
+
+.error {
+  text-align: center;
+  color: #ff4d4d;
 }
 
 .empty {
+  padding: 20px;
   text-align: center;
-  color: #b5eaff;
-  font-size: 16px;
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-  .movimiento-card {
-    flex-direction: column;
-    max-width: 90%;
-  }
+  color: #ccc;
 }
