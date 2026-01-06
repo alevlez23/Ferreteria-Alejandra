@@ -27,8 +27,6 @@ Objetivo del Proyecto
 
 * Aplicar buenas prácticas de desarrollo y control de versiones
 
-![alt text](<Captura de pantalla 2025-12-29 223403.png>)
-
 Funcionalidades del Sistema
 
 Autenticación
@@ -39,8 +37,6 @@ Autenticación
 
 * Acceso restringido al sistema
 
-![alt text](<Captura de pantalla 2026-01-02 215347.png>)
-
 Gestión de Productos
 
 * Registro de productos
@@ -48,8 +44,6 @@ Gestión de Productos
 * Visualización de productos disponibles
 
 * Asociación de productos con movimientos de inventario
-
-![alt text](image.png)
 
 Movimientos de Inventario
 
@@ -71,7 +65,6 @@ Cada movimiento contiene:
 
 Los movimientos se muestran visualmente diferenciados para facilitar su lectura.
 
-![alt text](image-1.png) 
 
 Base de Datos – MongoDB
 
@@ -85,7 +78,6 @@ Se utilizó MongoDB como sistema gestor de base de datos, con las siguientes col
 
 La relación entre productos y movimientos se maneja mediante referencias, permitiendo mantener la integridad de los datos.
 
-![alt text](<Captura de pantalla 2025-12-29 211619.png>)
 
 Tecnologías Utilizadas
 
