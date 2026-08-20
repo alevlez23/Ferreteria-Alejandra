@@ -32,11 +32,11 @@ jobs:
           node-version: 22
 
       - name: Instalar dependencias
-        working-directory: ./Interfaz
+        working-directory: ./frontend
         run: npm install
 
       - name: Compilar React
-        working-directory: ./Interfaz
+        working-directory: ./frontend
         env:
           VITE_BASE_PATH: /Ferreteria_Alejandra/
         run: npm run build
@@ -47,7 +47,7 @@ jobs:
       - name: Preparar archivos
         uses: actions/upload-pages-artifact@v5
         with:
-          path: ./Interfaz/dist
+          path: ./frontend/dist
 
   deploy:
     name: Publicar aplicación
