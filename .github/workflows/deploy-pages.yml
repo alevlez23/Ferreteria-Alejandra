@@ -1,0 +1,64 @@
+name: Publicar Ferreteria en GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: github-pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Compilar frontend
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Descargar repositorio
+        uses: actions/checkout@v6
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: 22
+
+      - name: Instalar dependencias
+        working-directory: ./Interfaz
+        run: npm install
+
+      - name: Compilar React
+        working-directory: ./Interfaz
+        env:
+          VITE_BASE_PATH: /Ferreteria_Alejandra/
+        run: npm run build
+
+      - name: Configurar GitHub Pages
+        uses: actions/configure-pages@v6
+
+      - name: Preparar archivos
+        uses: actions/upload-pages-artifact@v5
+        with:
+          path: ./Interfaz/dist
+
+  deploy:
+    name: Publicar aplicación
+    runs-on: ubuntu-latest
+    needs: build
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Desplegar en GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v5
