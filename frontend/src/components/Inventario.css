@@ -1,84 +1,302 @@
-/* ===== CARD GENERAL ===== */
+/* =========================================
+   CARD GENERAL
+========================================= */
+
 .card {
-  background: rgba(0,0,45,0.95);
+  background: rgba(0, 0, 45, 0.95);
   padding: 28px;
   border-radius: 16px;
   color: #00e5ff;
   margin-bottom: 20px;
-  box-shadow: 0 0 25px rgba(0,229,255,0.7);
+  box-shadow:
+    0 0 25px rgba(0, 229, 255, 0.7);
   max-width: 600px;
 }
 
-/* ===== ERRORES Y MENSAJES ===== */
-.error { color: #ff1744; text-align:center; margin-bottom:12px; }
-.success { color: #28a745; text-align:center; margin-bottom:12px; }
-.empty { text-align:center; margin-top:12px; }
+/* =========================================
+   CONTENEDOR INVENTARIO
+========================================= */
 
-/* ===== TABLAS ===== */
-table {
+.inventario-container {
+  width: 100%;
+  padding: 20px;
+}
+
+.tabla-wrapper {
+  width: 100%;
+  overflow-x: auto;
+}
+
+/* =========================================
+   ERRORES Y MENSAJES
+========================================= */
+
+.error {
+  color: #ff1744;
+  text-align: center;
+  margin-bottom: 12px;
+}
+
+.success {
+  color: #28a745;
+  text-align: center;
+  margin-bottom: 12px;
+}
+
+.empty {
+  text-align: center;
+  margin-top: 12px;
+}
+
+/* =========================================
+   TABLA
+========================================= */
+
+.inventario-tabla {
   width: 100%;
   border-collapse: collapse;
   margin-top: 15px;
 }
-th, td {
+
+.inventario-tabla th,
+.inventario-tabla td {
   padding: 10px;
-  border-bottom: 1px solid #00e5ff33;
+  border-bottom:
+    1px solid #00e5ff33;
   text-align: center;
 }
-th { font-weight: bold; }
 
-/* ===== BOTONES ===== */
-.btn-edit, .btn-delete {
-  padding: 6px 12px;
+.inventario-tabla th {
+  font-weight: bold;
+  color: #00e5ff;
+}
+
+/* =========================================
+   CONTENEDOR DE BOTONES
+========================================= */
+
+.acciones {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+/* =========================================
+   BOTONES GENERALES
+========================================= */
+
+.btn-entry,
+.btn-exit,
+.btn-edit,
+.btn-delete {
+  padding: 7px 12px;
   border-radius: 8px;
   border: none;
   cursor: pointer;
   font-size: 13px;
-  margin: 2px;
+  font-weight: 600;
+  transition:
+    transform 0.2s ease,
+    opacity 0.2s ease,
+    background 0.2s ease;
 }
-.btn-edit { background: #28a745; color:#fff; }
-.btn-edit:hover { background:#1e7e34; }
-.btn-delete { background: #dc3545; color:#fff; }
-.btn-delete:hover { background:#a71d2a; }
 
-/* ===== MODAL ===== */
+/* =========================================
+   BOTÓN ENTRADA
+========================================= */
+
+.btn-entry {
+  background: #00a86b;
+  color: #ffffff;
+}
+
+.btn-entry:hover {
+  background: #008f5b;
+  transform: translateY(-1px);
+}
+
+/* =========================================
+   BOTÓN SALIDA
+========================================= */
+
+.btn-exit {
+  background: #ff9800;
+  color: #ffffff;
+}
+
+.btn-exit:hover:not(:disabled) {
+  background: #e68900;
+  transform: translateY(-1px);
+}
+
+.btn-exit:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* =========================================
+   BOTÓN EDITAR
+========================================= */
+
+.btn-edit {
+  background: #28a745;
+  color: #ffffff;
+}
+
+.btn-edit:hover {
+  background: #1e7e34;
+  transform: translateY(-1px);
+}
+
+/* =========================================
+   BOTÓN ELIMINAR
+========================================= */
+
+.btn-delete {
+  background: #dc3545;
+  color: #ffffff;
+}
+
+.btn-delete:hover {
+  background: #a71d2a;
+  transform: translateY(-1px);
+}
+
+/* =========================================
+   MODAL
+========================================= */
+
 .modal {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 20, 0.85);
+  background:
+    rgba(0, 0, 20, 0.85);
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 9999;
   backdrop-filter: blur(6px);
 }
+
 .modal-card {
-  background: rgba(0,0,45,0.95);
+  background:
+    rgba(0, 0, 45, 0.95);
   padding: 28px 32px;
   border-radius: 16px;
   width: 420px;
   max-width: 92%;
-  box-shadow: 0 0 25px rgba(0,229,255,0.8), inset 0 0 12px rgba(0,229,255,0.15);
+  box-shadow:
+    0 0 25px
+      rgba(0, 229, 255, 0.8),
+    inset 0 0 12px
+      rgba(0, 229, 255, 0.15);
   color: #00e5ff;
   animation: modalIn 0.25s ease;
 }
-@keyframes modalIn { from {opacity:0; transform:scale(0.9);} to {opacity:1; transform:scale(1);} }
+
+@keyframes modalIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.modal-card h3 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
 .modal-card input {
   width: 100%;
   padding: 12px;
   margin-bottom: 14px;
   border-radius: 8px;
-  border: 1px solid #00e5ff;
-  background: rgba(0,0,30,0.8);
-  color: #fff;
+  border:
+    1px solid #00e5ff;
+  background:
+    rgba(0, 0, 30, 0.8);
+  color: #ffffff;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+.modal-card input:focus {
+  outline: none;
+  box-shadow:
+    0 0 8px #00e5ff;
+}
+
+/* =========================================
+   ACCIONES DEL MODAL
+========================================= */
+
+.modal-actions {
+  display: flex;
+  justify-content:
+    space-between;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.modal-actions button {
+  width: 50%;
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
   font-size: 14px;
 }
-.modal-card input:focus { outline:none; box-shadow:0 0 8px #00e5ff; }
-.modal-actions { display:flex; justify-content:space-between; margin-top:20px; }
-.modal-actions button {
-  width:48%; padding:10px; border:none; border-radius:8px; font-weight:bold; cursor:pointer; font-size:14px;
+
+.btn-save {
+  background: #28a745;
+  color: #ffffff;
 }
-.btn-save { background:#28a745; color:#fff; }
-.btn-save:hover { background:#1e7e34; }
-.btn-cancel { background:crimson; color:#fff; }
-.btn-cancel:hover { background:darkred; }
+
+.btn-save:hover {
+  background: #1e7e34;
+}
+
+.btn-cancel {
+  background: crimson;
+  color: #ffffff;
+}
+
+.btn-cancel:hover {
+  background: darkred;
+}
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 700px) {
+  .inventario-container {
+    padding: 10px;
+  }
+
+  .inventario-tabla th,
+  .inventario-tabla td {
+    padding: 8px 5px;
+    font-size: 13px;
+  }
+
+  .acciones {
+    min-width: 180px;
+  }
+
+  .btn-entry,
+  .btn-exit,
+  .btn-edit,
+  .btn-delete {
+    font-size: 12px;
+    padding: 6px 9px;
+  }
+}
