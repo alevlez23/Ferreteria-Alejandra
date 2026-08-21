@@ -1,51 +1,22 @@
 /* =========================================
-   CARD GENERAL
-========================================= */
-
-.card {
-  background: rgba(0, 0, 45, 0.95);
-  padding: 28px;
-  border-radius: 16px;
-  color: #00e5ff;
-  margin-bottom: 20px;
-  box-shadow:
-    0 0 25px rgba(0, 229, 255, 0.7);
-  max-width: 600px;
-}
-
-/* =========================================
-   CONTENEDOR INVENTARIO
+   INVENTARIO
 ========================================= */
 
 .inventario-container {
   width: 100%;
-  padding: 20px;
+  padding: 24px;
+}
+
+.inventario-container .titulo {
+  color: #00e5ff;
+  text-align: center;
+  margin-bottom: 28px;
+  font-size: 30px;
 }
 
 .tabla-wrapper {
   width: 100%;
   overflow-x: auto;
-}
-
-/* =========================================
-   ERRORES Y MENSAJES
-========================================= */
-
-.error {
-  color: #ff1744;
-  text-align: center;
-  margin-bottom: 12px;
-}
-
-.success {
-  color: #28a745;
-  text-align: center;
-  margin-bottom: 12px;
-}
-
-.empty {
-  text-align: center;
-  margin-top: 12px;
 }
 
 /* =========================================
@@ -60,108 +31,150 @@
 
 .inventario-tabla th,
 .inventario-tabla td {
-  padding: 10px;
-  border-bottom:
-    1px solid #00e5ff33;
+  padding: 16px 14px;
+  border-bottom: 1px solid rgba(0, 229, 255, 0.45);
   text-align: center;
+  vertical-align: middle;
 }
 
 .inventario-tabla th {
-  font-weight: bold;
   color: #00e5ff;
+  font-weight: 700;
+  font-size: 16px;
+}
+
+.inventario-tabla td {
+  color: #ffffff;
+}
+
+.inventario-tabla tbody tr {
+  transition: background 0.2s ease;
+}
+
+.inventario-tabla tbody tr:hover {
+  background: rgba(0, 229, 255, 0.04);
 }
 
 /* =========================================
-   CONTENEDOR DE BOTONES
+   ACCIONES
 ========================================= */
 
-.acciones {
+.inventario-tabla .acciones {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
-  gap: 5px;
+
+  /* AQUÍ SEPARA LOS BOTONES */
+  gap: 10px;
 }
 
-/* =========================================
-   BOTONES GENERALES
-========================================= */
+/* Todos los botones del inventario */
+.inventario-tabla .acciones button {
+  min-width: 82px;
+  padding: 9px 14px;
 
-.btn-entry,
-.btn-exit,
-.btn-edit,
-.btn-delete {
-  padding: 7px 12px;
+  border: 1px solid transparent;
   border-radius: 8px;
-  border: none;
-  cursor: pointer;
+
+  color: #ffffff;
   font-size: 13px;
   font-weight: 600;
+
+  cursor: pointer;
+
   transition:
     transform 0.2s ease,
-    opacity 0.2s ease,
+    box-shadow 0.2s ease,
     background 0.2s ease;
 }
 
 /* =========================================
-   BOTÓN ENTRADA
+   ENTRADA
 ========================================= */
 
-.btn-entry {
-  background: #00a86b;
-  color: #ffffff;
+.inventario-tabla .btn-entry {
+  background: #008f6a;
+  border-color: #00d99b;
 }
 
-.btn-entry:hover {
-  background: #008f5b;
+.inventario-tabla .btn-entry:hover {
+  background: #00a97d;
+  box-shadow: 0 0 12px rgba(0, 217, 155, 0.4);
   transform: translateY(-1px);
 }
 
 /* =========================================
-   BOTÓN SALIDA
+   SALIDA
 ========================================= */
 
-.btn-exit {
-  background: #ff9800;
-  color: #ffffff;
+.inventario-tabla .btn-exit {
+  background: #c77700;
+  border-color: #ffb347;
 }
 
-.btn-exit:hover:not(:disabled) {
-  background: #e68900;
+.inventario-tabla .btn-exit:hover:not(:disabled) {
+  background: #e28a00;
+  box-shadow: 0 0 12px rgba(255, 179, 71, 0.4);
   transform: translateY(-1px);
 }
 
-.btn-exit:disabled {
-  opacity: 0.4;
+.inventario-tabla .btn-exit:disabled {
+  background: #4b5563;
+  border-color: #6b7280;
+  opacity: 0.55;
   cursor: not-allowed;
 }
 
 /* =========================================
-   BOTÓN EDITAR
+   EDITAR
 ========================================= */
 
-.btn-edit {
-  background: #28a745;
-  color: #ffffff;
+.inventario-tabla .btn-edit {
+  background: #2563a8;
+  border-color: #4da3ff;
 }
 
-.btn-edit:hover {
-  background: #1e7e34;
+.inventario-tabla .btn-edit:hover {
+  background: #3078c8;
+  box-shadow: 0 0 12px rgba(77, 163, 255, 0.35);
   transform: translateY(-1px);
 }
 
 /* =========================================
-   BOTÓN ELIMINAR
+   ELIMINAR
 ========================================= */
 
-.btn-delete {
-  background: #dc3545;
-  color: #ffffff;
+.inventario-tabla .btn-delete {
+  background: #b42335;
+  border-color: #ef5264;
 }
 
-.btn-delete:hover {
-  background: #a71d2a;
+.inventario-tabla .btn-delete:hover {
+  background: #cf2d42;
+  box-shadow: 0 0 12px rgba(239, 82, 100, 0.35);
   transform: translateY(-1px);
+}
+
+/* =========================================
+   MENSAJES
+========================================= */
+
+.error {
+  color: #ff5a67;
+  text-align: center;
+  margin-bottom: 12px;
+}
+
+.success {
+  color: #23d997;
+  text-align: center;
+  margin-bottom: 12px;
+}
+
+.empty {
+  text-align: center;
+  margin-top: 12px;
 }
 
 /* =========================================
@@ -171,41 +184,40 @@
 .modal {
   position: fixed;
   inset: 0;
-  background:
-    rgba(0, 0, 20, 0.85);
+
+  background: rgba(0, 0, 20, 0.85);
+
   display: flex;
   justify-content: center;
   align-items: center;
+
   z-index: 9999;
+
   backdrop-filter: blur(6px);
 }
 
 .modal-card {
-  background:
-    rgba(0, 0, 45, 0.95);
-  padding: 28px 32px;
-  border-radius: 16px;
   width: 420px;
   max-width: 92%;
-  box-shadow:
-    0 0 25px
-      rgba(0, 229, 255, 0.8),
-    inset 0 0 12px
-      rgba(0, 229, 255, 0.15);
+
+  padding: 28px 32px;
+
+  background: linear-gradient(
+    145deg,
+    rgba(2, 11, 58, 0.98),
+    rgba(4, 19, 79, 0.98)
+  );
+
+  border: 1px solid rgba(0, 229, 255, 0.35);
+  border-radius: 16px;
+
   color: #00e5ff;
+
+  box-shadow:
+    0 0 25px rgba(0, 229, 255, 0.55),
+    inset 0 0 12px rgba(0, 229, 255, 0.08);
+
   animation: modalIn 0.25s ease;
-}
-
-@keyframes modalIn {
-  from {
-    opacity: 0;
-    transform: scale(0.9);
-  }
-
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
 }
 
 .modal-card h3 {
@@ -215,88 +227,94 @@
 
 .modal-card input {
   width: 100%;
+
   padding: 12px;
   margin-bottom: 14px;
+
+  border: 1px solid #00e5ff;
   border-radius: 8px;
-  border:
-    1px solid #00e5ff;
-  background:
-    rgba(0, 0, 30, 0.8);
+
+  background: rgba(0, 0, 30, 0.85);
   color: #ffffff;
+
   font-size: 14px;
-  box-sizing: border-box;
 }
 
 .modal-card input:focus {
   outline: none;
-  box-shadow:
-    0 0 8px #00e5ff;
+  box-shadow: 0 0 8px rgba(0, 229, 255, 0.65);
 }
-
-/* =========================================
-   ACCIONES DEL MODAL
-========================================= */
 
 .modal-actions {
   display: flex;
-  justify-content:
-    space-between;
-  gap: 10px;
+  gap: 12px;
   margin-top: 20px;
 }
 
 .modal-actions button {
-  width: 50%;
+  flex: 1;
+
   padding: 10px;
+
   border: none;
   border-radius: 8px;
+
   font-weight: bold;
   cursor: pointer;
-  font-size: 14px;
 }
 
 .btn-save {
-  background: #28a745;
-  color: #ffffff;
+  background: #008f6a;
+  color: white;
 }
 
 .btn-save:hover {
-  background: #1e7e34;
+  background: #00a97d;
 }
 
 .btn-cancel {
-  background: crimson;
-  color: #ffffff;
+  background: #b42335;
+  color: white;
 }
 
 .btn-cancel:hover {
-  background: darkred;
+  background: #cf2d42;
+}
+
+@keyframes modalIn {
+  from {
+    opacity: 0;
+    transform: scale(0.94);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
 /* =========================================
    RESPONSIVE
 ========================================= */
 
-@media (max-width: 700px) {
+@media (max-width: 900px) {
   .inventario-container {
-    padding: 10px;
+    padding: 16px;
   }
 
   .inventario-tabla th,
   .inventario-tabla td {
-    padding: 8px 5px;
-    font-size: 13px;
+    padding: 12px 8px;
   }
 
-  .acciones {
-    min-width: 180px;
+  .inventario-tabla .acciones {
+    min-width: 200px;
+    gap: 7px;
   }
 
-  .btn-entry,
-  .btn-exit,
-  .btn-edit,
-  .btn-delete {
+  .inventario-tabla .acciones button {
+    min-width: 76px;
+    padding: 8px 10px;
     font-size: 12px;
-    padding: 6px 9px;
   }
 }
