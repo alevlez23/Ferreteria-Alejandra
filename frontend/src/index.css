@@ -65,14 +65,6 @@ th {
   color: #00e5ff;
 }
 
-td button {
-  background: crimson;
-  border: none;
-  color: white;
-  padding: 6px 10px;
-  border-radius: 5px;
-  cursor: pointer;
-}
 /* =========================
    MODAL EDITAR (AISLADO)
 ========================= */
