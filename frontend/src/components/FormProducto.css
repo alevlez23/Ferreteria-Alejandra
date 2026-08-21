@@ -1,92 +1,265 @@
-/* Contenedor centrado y adaptable */
+/* =========================================================
+   CONTENEDOR DEL FORMULARIO
+========================================================= */
+
 .form-container {
   display: flex;
   justify-content: center;
-  align-items: center;
-  padding: 20px;
+
+  padding: 6px 0 26px;
 }
 
-/* Card del formulario */
+
+/* =========================================================
+   TARJETA DEL FORMULARIO
+========================================================= */
+
 .card-form {
-  background: rgba(0, 0, 45, 0.95);
-  padding: 32px;
-  border-radius: 16px;
-  width: 100%;
-  max-width: 500px;
-  box-shadow:
-    0 0 25px rgba(0, 229, 255, 0.8),
-    inset 0 0 12px rgba(0, 229, 255, 0.15);
-  color: #00e5ff;
+  width: min(100%, 620px);
+
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  animation: fadeIn 0.3s ease;
+
+  gap: 14px;
+
+  padding:
+    clamp(
+      24px,
+      3vw,
+      36px
+    );
+
+  background:
+    linear-gradient(
+      155deg,
+      rgba(7, 18, 63, 0.96),
+      rgba(3, 9, 38, 0.96)
+    );
+
+  border:
+    1px solid
+    rgba(18, 223, 243, 0.22);
+
+  border-radius:
+    20px;
+
+  box-shadow:
+    var(--shadow-soft),
+    0 0 26px
+    rgba(18, 223, 243, 0.15);
+
+  color:
+    var(--text);
 }
+
+
+/* =========================================================
+   TÍTULO
+========================================================= */
 
 .card-form h2 {
-  text-align: center;
-  margin-bottom: 20px;
-  color: #00e5ff;
+  margin-bottom:
+    12px;
+
+  color:
+    var(--cyan);
+
+  font-size:
+    clamp(
+      24px,
+      2.5vw,
+      30px
+    );
+
+  font-weight:
+    800;
+
+  text-align:
+    center;
 }
+
+
+/* =========================================================
+   CAMPOS
+========================================================= */
 
 .card-form input {
-  padding: 12px;
-  border-radius: 10px;
-  border: 1px solid #00e5ff;
-  background: rgba(0, 0, 30, 0.8);
-  color: white;
-  font-size: 14px;
+  width:
+    100%;
+
+  min-height:
+    52px;
+
+  padding:
+    0 16px;
+
+  background:
+    rgba(2, 7, 30, 0.86);
+
+  color:
+    #ffffff;
+
+  border:
+    1px solid
+    rgba(18, 223, 243, 0.72);
+
+  border-radius:
+    12px;
+
+  font-size:
+    15px;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
 }
+
+
+/* Placeholder */
+
+.card-form input::placeholder {
+  color:
+    #8794aa;
+}
+
+
+/* Focus */
 
 .card-form input:focus {
-  outline: none;
-  box-shadow: 0 0 8px #00e5ff;
+  outline:
+    none;
+
+  background:
+    rgba(5, 14, 48, 0.96);
+
+  border-color:
+    var(--cyan);
+
+  box-shadow:
+    0 0 0 3px
+    rgba(18, 223, 243, 0.1);
 }
+
+
+/* =========================================================
+   BOTÓN AGREGAR
+========================================================= */
 
 .btn-submit {
-  padding: 12px;
-  margin-top: 10px;
-  border: none;
-  border-radius: 12px;
-  font-weight: bold;
-  background: linear-gradient(135deg, #00e5ff, #00bcd4);
-  color: white;
-  cursor: pointer;
-  transition: filter 0.2s;
+  min-height:
+    50px;
+
+  margin-top:
+    10px;
+
+  padding:
+    12px 18px;
+
+  background:
+    linear-gradient(
+      135deg,
+      var(--cyan),
+      var(--cyan-strong)
+    );
+
+  color:
+    #03111a;
+
+  border-radius:
+    12px;
+
+  font-size:
+    15px;
+
+  font-weight:
+    800;
+
+  cursor:
+    pointer;
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    filter 0.2s ease;
 }
+
+
+/* Hover */
 
 .btn-submit:hover {
-  filter: brightness(1.1);
+  filter:
+    brightness(1.05);
+
+  box-shadow:
+    0 8px 24px
+    rgba(18, 223, 243, 0.16);
+
+  transform:
+    translateY(-1px);
 }
 
-.error {
-  color: crimson;
-  font-size: 14px;
-  text-align: center;
+
+/* Click */
+
+.btn-submit:active {
+  transform:
+    translateY(0);
 }
 
-.success {
-  color: #28a745;
-  font-size: 14px;
-  text-align: center;
+
+/* =========================================================
+   MENSAJES
+========================================================= */
+
+.card-form .error {
+  color:
+    #ff707c;
+
+  font-size:
+    14px;
+
+  text-align:
+    center;
 }
 
-/* Animación */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(-10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.card-form .success {
+  color:
+    #3dd9a0;
+
+  font-size:
+    14px;
+
+  text-align:
+    center;
 }
 
-/* Responsive */
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
 @media (max-width: 600px) {
+  .form-container {
+    padding-bottom:
+      16px;
+  }
+
   .card-form {
-    padding: 20px;
-    gap: 10px;
+    padding:
+      22px 18px;
+
+    border-radius:
+      16px;
+  }
+
+  .card-form input {
+    min-height:
+      48px;
+  }
+
+  .btn-submit {
+    min-height:
+      48px;
   }
 }
