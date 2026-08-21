@@ -1,71 +1,435 @@
+/* =========================================================
+   CONTENEDOR DE MOVIMIENTOS
+========================================================= */
+
 .movimientos-container {
-  padding: 40px;
-  color: white;
+  width: min(100%, 1420px);
+
+  min-height: 100vh;
+  min-height: 100dvh;
+
+  margin: 0 auto;
+
+  padding:
+    clamp(
+      28px,
+      4vw,
+      58px
+    );
 }
 
-.titulo {
-  text-align: center;
-  font-size: 28px;
-  margin-bottom: 30px;
-  color: #00f7ff;
+
+/* =========================================================
+   TÍTULO
+========================================================= */
+
+.movimientos-container .titulo {
+  margin-bottom:
+    30px;
+
+  color:
+    var(--cyan);
+
+  font-size:
+    clamp(
+      28px,
+      3vw,
+      38px
+    );
+
+  font-weight:
+    800;
+
+  text-align:
+    center;
+
+  letter-spacing:
+    0.02em;
 }
+
+
+/* =========================================================
+   CONTENEDOR DE LA TABLA
+========================================================= */
 
 .movimientos-table {
-  width: 100%;
-  max-width: 1000px;
-  margin: auto;
-  background: rgba(0, 0, 0, 0.4);
-  border-radius: 12px;
-  overflow: hidden;
+  width:
+    100%;
+
+  overflow-x:
+    auto;
+
+  background:
+    rgba(4, 11, 36, 0.78);
+
+  border:
+    1px solid
+    rgba(18, 223, 243, 0.16);
+
+  border-radius:
+    18px;
+
+  box-shadow:
+    0 18px 45px
+    rgba(0, 0, 0, 0.22);
 }
+
+
+/* =========================================================
+   ESTRUCTURA DE COLUMNAS
+========================================================= */
 
 .movimientos-header,
 .movimientos-row {
-  display: grid;
-  grid-template-columns: 2fr 1fr 1fr 1fr;
-  padding: 15px 20px;
-  align-items: center;
+  min-width:
+    760px;
+
+  display:
+    grid;
+
+  grid-template-columns:
+    minmax(220px, 2fr)
+    minmax(150px, 1fr)
+    minmax(120px, 1fr)
+    minmax(150px, 1fr);
+
+  align-items:
+    center;
+
+  gap:
+    16px;
+
+  padding:
+    17px 22px;
 }
+
+
+/* =========================================================
+   CABECERA
+========================================================= */
 
 .movimientos-header {
-  background: rgba(0, 255, 255, 0.15);
-  font-weight: bold;
-  color: #00f7ff;
+  background:
+    rgba(12, 52, 78, 0.76);
+
+  color:
+    var(--cyan);
+
+  font-size:
+    15px;
+
+  font-weight:
+    800;
+
+  letter-spacing:
+    0.02em;
 }
+
+
+/* =========================================================
+   FILAS
+========================================================= */
 
 .movimientos-row {
-  border-top: 1px solid rgba(0, 255, 255, 0.2);
+  position:
+    relative;
+
+  color:
+    #f8faff;
+
+  border-top:
+    1px solid
+    rgba(18, 223, 243, 0.14);
+
+  transition:
+    background 0.18s ease,
+    transform 0.18s ease;
 }
+
+
+/* Hover suave */
 
 .movimientos-row:hover {
-  background: rgba(0, 255, 255, 0.08);
+  background:
+    rgba(18, 223, 243, 0.04);
 }
+
+
+/* =========================================================
+   INDICADOR DE ENTRADA
+========================================================= */
+
+.movimientos-row.entrada {
+  border-left:
+    4px solid
+    #20d88f;
+}
+
+
+/* =========================================================
+   INDICADOR DE SALIDA
+========================================================= */
+
+.movimientos-row.salida {
+  border-left:
+    4px solid
+    #f05a64;
+}
+
+
+/* =========================================================
+   BADGE TIPO
+========================================================= */
+
+.tipo {
+  width:
+    fit-content;
+
+  display:
+    inline-flex;
+
+  align-items:
+    center;
+
+  justify-content:
+    center;
+
+  padding:
+    6px 11px;
+
+  border:
+    1px solid transparent;
+
+  border-radius:
+    999px;
+
+  font-size:
+    12px;
+
+  font-weight:
+    800;
+
+  letter-spacing:
+    0.05em;
+}
+
+
+/* =========================================================
+   BADGE ENTRADA
+========================================================= */
 
 .tipo.entrada {
-  color: #00ff88;
-  font-weight: bold;
+  background:
+    rgba(5, 150, 105, 0.12);
+
+  color:
+    #45e2aa;
+
+  border-color:
+    rgba(52, 211, 153, 0.34);
 }
+
+
+/* =========================================================
+   BADGE SALIDA
+========================================================= */
 
 .tipo.salida {
-  color: #ff4d4d;
-  font-weight: bold;
+  background:
+    rgba(220, 38, 38, 0.11);
+
+  color:
+    #ff7b84;
+
+  border-color:
+    rgba(248, 113, 113, 0.34);
 }
 
-.entrada {
-  border-left: 4px solid #00ff88;
+
+/* =========================================================
+   PRODUCTO
+========================================================= */
+
+.movimientos-row span:first-child {
+  color:
+    #f5f8ff;
+
+  font-weight:
+    600;
 }
 
-.salida {
-  border-left: 4px solid #ff4d4d;
+
+/* =========================================================
+   CANTIDAD
+========================================================= */
+
+.movimientos-row span:nth-child(3) {
+  font-weight:
+    800;
 }
 
+
+/* Cantidades de entrada */
+
+.movimientos-row.entrada
+span:nth-child(3) {
+  color:
+    #45e2aa;
+}
+
+
+/* Cantidades de salida */
+
+.movimientos-row.salida
+span:nth-child(3) {
+  color:
+    #ff7b84;
+}
+
+
+/* =========================================================
+   FECHA
+========================================================= */
+
+.movimientos-row
+span:last-child {
+  color:
+    var(--text-soft);
+
+  font-size:
+    14px;
+}
+
+
+/* =========================================================
+   MENSAJE DE ERROR
+========================================================= */
+
+.movimientos-container
 .error {
-  text-align: center;
-  color: #ff4d4d;
+  margin-bottom:
+    16px;
+
+  padding:
+    12px 16px;
+
+  background:
+    rgba(220, 38, 38, 0.08);
+
+  color:
+    #ff7b84;
+
+  border:
+    1px solid
+    rgba(248, 113, 113, 0.18);
+
+  border-radius:
+    10px;
+
+  font-size:
+    14px;
+
+  font-weight:
+    600;
+
+  text-align:
+    center;
 }
 
+
+/* =========================================================
+   SIN MOVIMIENTOS
+========================================================= */
+
+.movimientos-container
 .empty {
-  padding: 20px;
-  text-align: center;
-  color: #ccc;
+  min-width:
+    760px;
+
+  padding:
+    34px;
+
+  color:
+    var(--text-soft);
+
+  font-size:
+    15px;
+
+  text-align:
+    center;
+}
+
+
+/* =========================================================
+   RESPONSIVE - TABLET
+========================================================= */
+
+@media (max-width: 900px) {
+
+  .movimientos-container {
+    padding:
+      28px 18px;
+  }
+
+  .movimientos-header,
+  .movimientos-row {
+    padding:
+      15px 18px;
+  }
+
+  .movimientos-header {
+    font-size:
+      14px;
+  }
+
+  .movimientos-row {
+    font-size:
+      14px;
+  }
+}
+
+
+/* =========================================================
+   RESPONSIVE - MÓVIL
+========================================================= */
+
+@media (max-width: 600px) {
+
+  .movimientos-container {
+    padding:
+      22px 12px;
+  }
+
+  .movimientos-container
+  .titulo {
+    margin-bottom:
+      22px;
+
+    font-size:
+      27px;
+  }
+
+  .movimientos-table {
+    border-radius:
+      14px;
+  }
+
+  .movimientos-header,
+  .movimientos-row {
+    padding:
+      14px 16px;
+  }
+}
+
+
+/* =========================================================
+   ACCESIBILIDAD
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+  .movimientos-row {
+    transition:
+      none;
+  }
 }
