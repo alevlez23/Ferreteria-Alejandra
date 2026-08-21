@@ -446,3 +446,105 @@
     font-size: 12px;
   }
 }
+
+/* =====================================================
+   BOTONES DE ACCIONES DEL INVENTARIO
+===================================================== */
+
+.inventario-tabla td.acciones {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  flex-wrap: wrap !important;
+  gap: 12px !important;
+}
+
+/* Base común */
+.inventario-tabla td.acciones button {
+  min-width: 85px !important;
+  padding: 9px 14px !important;
+
+  margin: 0 !important;
+
+  border-radius: 8px !important;
+  border: 1px solid transparent !important;
+
+  color: #ffffff !important;
+
+  font-size: 14px !important;
+  font-weight: 600 !important;
+
+  cursor: pointer !important;
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease !important;
+}
+
+/* ENTRADA */
+.inventario-tabla td.acciones .btn-entry {
+  background: #059669 !important;
+  border-color: #10b981 !important;
+}
+
+.inventario-tabla td.acciones .btn-entry:hover {
+  background: #047857 !important;
+  box-shadow: 0 0 12px rgba(16, 185, 129, 0.45) !important;
+  transform: translateY(-2px);
+}
+
+/* SALIDA */
+.inventario-tabla td.acciones .btn-exit {
+  background: #d97706 !important;
+  border-color: #f59e0b !important;
+}
+
+.inventario-tabla td.acciones .btn-exit:hover:not(:disabled) {
+  background: #b45309 !important;
+  box-shadow: 0 0 12px rgba(245, 158, 11, 0.45) !important;
+  transform: translateY(-2px);
+}
+
+.inventario-tabla td.acciones .btn-exit:disabled {
+  background: #4b5563 !important;
+  opacity: 0.5 !important;
+  cursor: not-allowed !important;
+}
+
+/* EDITAR */
+.inventario-tabla td.acciones .btn-edit {
+  background: #2563eb !important;
+  border-color: #3b82f6 !important;
+}
+
+.inventario-tabla td.acciones .btn-edit:hover {
+  background: #1d4ed8 !important;
+  box-shadow: 0 0 12px rgba(59, 130, 246, 0.45) !important;
+  transform: translateY(-2px);
+}
+
+/* ELIMINAR */
+.inventario-tabla td.acciones .btn-delete {
+  background: #dc2626 !important;
+  border-color: #ef4444 !important;
+}
+
+.inventario-tabla td.acciones .btn-delete:hover {
+  background: #b91c1c !important;
+  box-shadow: 0 0 12px rgba(239, 68, 68, 0.45) !important;
+  transform: translateY(-2px);
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  .inventario-tabla td.acciones {
+    gap: 7px !important;
+  }
+
+  .inventario-tabla td.acciones button {
+    min-width: 72px !important;
+    padding: 8px 10px !important;
+    font-size: 12px !important;
+  }
+}
