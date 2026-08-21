@@ -1,6 +1,78 @@
-/* =========================================
-   INVENTARIO
-========================================= */
+/* =====================================================
+   CONFIGURACIÓN GENERAL
+===================================================== */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", sans-serif;
+}
+
+body {
+  background: radial-gradient(circle at top, #000814, #000814);
+  min-height: 100vh;
+  color: white;
+}
+
+/* =====================================================
+   DASHBOARD
+===================================================== */
+
+.dashboard {
+  padding: 30px;
+}
+
+/* =====================================================
+   TARJETAS
+===================================================== */
+
+.card {
+  background: rgba(0, 0, 40, 0.85);
+  border-radius: 12px;
+  padding: 25px;
+  margin-bottom: 25px;
+  box-shadow: 0 0 18px #00e5ff;
+}
+
+.card h3 {
+  margin-bottom: 15px;
+  color: #00e5ff;
+}
+
+/* =====================================================
+   FORMULARIO
+===================================================== */
+
+form input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+
+  border-radius: 6px;
+  border: none;
+}
+
+form button {
+  padding: 10px 18px;
+
+  background: #00e5ff;
+
+  border: none;
+  border-radius: 6px;
+
+  font-weight: bold;
+
+  cursor: pointer;
+}
+
+form button:hover {
+  background: #00bcd4;
+}
+
+/* =====================================================
+   CONTENEDOR DE INVENTARIO
+===================================================== */
 
 .inventario-container {
   width: 100%;
@@ -9,8 +81,11 @@
 
 .inventario-container .titulo {
   color: #00e5ff;
+
   text-align: center;
-  margin-bottom: 28px;
+
+  margin-bottom: 25px;
+
   font-size: 30px;
 }
 
@@ -19,32 +94,34 @@
   overflow-x: auto;
 }
 
-/* =========================================
-   TABLA
-========================================= */
+/* =====================================================
+   TABLA INVENTARIO
+===================================================== */
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: center;
+}
 
 .inventario-tabla {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 15px;
 }
 
-.inventario-tabla th,
-.inventario-tabla td {
-  padding: 16px 14px;
-  border-bottom: 1px solid rgba(0, 229, 255, 0.45);
-  text-align: center;
-  vertical-align: middle;
+th,
+td {
+  padding: 14px;
+  border-bottom: 1px solid #00e5ff;
 }
 
-.inventario-tabla th {
+th {
   color: #00e5ff;
-  font-weight: 700;
-  font-size: 16px;
 }
 
 .inventario-tabla td {
   color: #ffffff;
+  vertical-align: middle;
 }
 
 .inventario-tabla tbody tr {
@@ -55,291 +132,30 @@
   background: rgba(0, 229, 255, 0.04);
 }
 
-/* =========================================
-   ACCIONES
-========================================= */
+/* =====================================================
+   COLUMNA ACCIONES
+===================================================== */
 
-.inventario-tabla .acciones {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
+.inventario-tabla td.acciones {
+  text-align: center;
 
-  /* AQUÍ SEPARA LOS BOTONES */
-  gap: 10px;
+  /* Evita que los botones se peguen */
+  white-space: nowrap;
 }
 
-/* Todos los botones del inventario */
-.inventario-tabla .acciones button {
+/* Configuración común para los cuatro botones */
+.inventario-tabla td.acciones button {
   min-width: 82px;
+
   padding: 9px 14px;
+
+  /* Espacio horizontal y vertical */
+  margin: 4px 5px;
 
   border: 1px solid transparent;
   border-radius: 8px;
 
   color: #ffffff;
-  font-size: 13px;
-  font-weight: 600;
-
-  cursor: pointer;
-
-  transition:
-    transform 0.2s ease,
-    box-shadow 0.2s ease,
-    background 0.2s ease;
-}
-
-/* =========================================
-   ENTRADA
-========================================= */
-
-.inventario-tabla .btn-entry {
-  background: #008f6a;
-  border-color: #00d99b;
-}
-
-.inventario-tabla .btn-entry:hover {
-  background: #00a97d;
-  box-shadow: 0 0 12px rgba(0, 217, 155, 0.4);
-  transform: translateY(-1px);
-}
-
-/* =========================================
-   SALIDA
-========================================= */
-
-.inventario-tabla .btn-exit {
-  background: #c77700;
-  border-color: #ffb347;
-}
-
-.inventario-tabla .btn-exit:hover:not(:disabled) {
-  background: #e28a00;
-  box-shadow: 0 0 12px rgba(255, 179, 71, 0.4);
-  transform: translateY(-1px);
-}
-
-.inventario-tabla .btn-exit:disabled {
-  background: #4b5563;
-  border-color: #6b7280;
-  opacity: 0.55;
-  cursor: not-allowed;
-}
-
-/* =========================================
-   EDITAR
-========================================= */
-
-.inventario-tabla .btn-edit {
-  background: #2563a8;
-  border-color: #4da3ff;
-}
-
-.inventario-tabla .btn-edit:hover {
-  background: #3078c8;
-  box-shadow: 0 0 12px rgba(77, 163, 255, 0.35);
-  transform: translateY(-1px);
-}
-
-/* =========================================
-   ELIMINAR
-========================================= */
-
-.inventario-tabla .btn-delete {
-  background: #b42335;
-  border-color: #ef5264;
-}
-
-.inventario-tabla .btn-delete:hover {
-  background: #cf2d42;
-  box-shadow: 0 0 12px rgba(239, 82, 100, 0.35);
-  transform: translateY(-1px);
-}
-
-/* =========================================
-   MENSAJES
-========================================= */
-
-.error {
-  color: #ff5a67;
-  text-align: center;
-  margin-bottom: 12px;
-}
-
-.success {
-  color: #23d997;
-  text-align: center;
-  margin-bottom: 12px;
-}
-
-.empty {
-  text-align: center;
-  margin-top: 12px;
-}
-
-/* =========================================
-   MODAL
-========================================= */
-
-.modal {
-  position: fixed;
-  inset: 0;
-
-  background: rgba(0, 0, 20, 0.85);
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  z-index: 9999;
-
-  backdrop-filter: blur(6px);
-}
-
-.modal-card {
-  width: 420px;
-  max-width: 92%;
-
-  padding: 28px 32px;
-
-  background: linear-gradient(
-    145deg,
-    rgba(2, 11, 58, 0.98),
-    rgba(4, 19, 79, 0.98)
-  );
-
-  border: 1px solid rgba(0, 229, 255, 0.35);
-  border-radius: 16px;
-
-  color: #00e5ff;
-
-  box-shadow:
-    0 0 25px rgba(0, 229, 255, 0.55),
-    inset 0 0 12px rgba(0, 229, 255, 0.08);
-
-  animation: modalIn 0.25s ease;
-}
-
-.modal-card h3 {
-  text-align: center;
-  margin-bottom: 20px;
-}
-
-.modal-card input {
-  width: 100%;
-
-  padding: 12px;
-  margin-bottom: 14px;
-
-  border: 1px solid #00e5ff;
-  border-radius: 8px;
-
-  background: rgba(0, 0, 30, 0.85);
-  color: #ffffff;
-
-  font-size: 14px;
-}
-
-.modal-card input:focus {
-  outline: none;
-  box-shadow: 0 0 8px rgba(0, 229, 255, 0.65);
-}
-
-.modal-actions {
-  display: flex;
-  gap: 12px;
-  margin-top: 20px;
-}
-
-.modal-actions button {
-  flex: 1;
-
-  padding: 10px;
-
-  border: none;
-  border-radius: 8px;
-
-  font-weight: bold;
-  cursor: pointer;
-}
-
-.btn-save {
-  background: #008f6a;
-  color: white;
-}
-
-.btn-save:hover {
-  background: #00a97d;
-}
-
-.btn-cancel {
-  background: #b42335;
-  color: white;
-}
-
-.btn-cancel:hover {
-  background: #cf2d42;
-}
-
-@keyframes modalIn {
-  from {
-    opacity: 0;
-    transform: scale(0.94);
-  }
-
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-/* =========================================
-   RESPONSIVE
-========================================= */
-
-@media (max-width: 900px) {
-  .inventario-container {
-    padding: 16px;
-  }
-
-  .inventario-tabla th,
-  .inventario-tabla td {
-    padding: 12px 8px;
-  }
-
-  .inventario-tabla .acciones {
-    min-width: 200px;
-    gap: 7px;
-  }
-
-  .inventario-tabla .acciones button {
-    min-width: 76px;
-    padding: 8px 10px;
-    font-size: 12px;
-  }
-}
-
-/* =====================================================
-   ACCIONES DEL INVENTARIO
-   Entrada | Salida | Editar | Eliminar
-===================================================== */
-
-.inventario-tabla td.acciones {
-  text-align: center;
-  white-space: nowrap;
-}
-
-/* Separación real entre botones */
-.inventario-tabla td.acciones button {
-  margin: 4px 6px !important;
-  padding: 9px 15px !important;
-
-  min-width: 82px;
-
-  border: none !important;
-  border-radius: 8px !important;
-
-  color: white !important;
 
   font-size: 14px;
   font-weight: 600;
@@ -347,142 +163,16 @@
   cursor: pointer;
 
   transition:
+    background 0.2s ease,
     transform 0.2s ease,
     box-shadow 0.2s ease,
     opacity 0.2s ease;
 }
 
-/* =========================
-   ENTRADA
-========================= */
-
-.inventario-tabla td.acciones .btn-entry {
-  background: #059669 !important;
-}
-
-.inventario-tabla td.acciones .btn-entry:hover {
-  background: #047857 !important;
-
-  box-shadow:
-    0 0 12px rgba(5, 150, 105, 0.5);
-
-  transform: translateY(-2px);
-}
-
-/* =========================
-   SALIDA
-========================= */
-
-.inventario-tabla td.acciones .btn-exit {
-  background: #d97706 !important;
-}
-
-.inventario-tabla td.acciones .btn-exit:hover:not(:disabled) {
-  background: #b45309 !important;
-
-  box-shadow:
-    0 0 12px rgba(217, 119, 6, 0.5);
-
-  transform: translateY(-2px);
-}
-
-/* Salida deshabilitada cuando no hay stock */
-
-.inventario-tabla td.acciones .btn-exit:disabled {
-  background: #4b5563 !important;
-
-  opacity: 0.55;
-
-  cursor: not-allowed;
-}
-
-/* =========================
-   EDITAR
-========================= */
-
-.inventario-tabla td.acciones .btn-edit {
-  background: #2563eb !important;
-}
-
-.inventario-tabla td.acciones .btn-edit:hover {
-  background: #1d4ed8 !important;
-
-  box-shadow:
-    0 0 12px rgba(37, 99, 235, 0.45);
-
-  transform: translateY(-2px);
-}
-
-/* =========================
-   ELIMINAR
-========================= */
-
-.inventario-tabla td.acciones .btn-delete {
-  background: #dc2626 !important;
-}
-
-.inventario-tabla td.acciones .btn-delete:hover {
-  background: #b91c1c !important;
-
-  box-shadow:
-    0 0 12px rgba(220, 38, 38, 0.45);
-
-  transform: translateY(-2px);
-}
-
-/* =========================
-   RESPONSIVE
-========================= */
-
-@media (max-width: 900px) {
-  .inventario-tabla td.acciones {
-    white-space: normal;
-  }
-
-  .inventario-tabla td.acciones button {
-    margin: 4px !important;
-    min-width: 72px;
-    padding: 8px 10px !important;
-    font-size: 12px;
-  }
-}
-
 /* =====================================================
-   BOTONES DE ACCIONES DEL INVENTARIO
+   BOTÓN ENTRADA
 ===================================================== */
 
-.inventario-tabla td.acciones {
-  display: flex !important;
-  justify-content: center !important;
-  align-items: center !important;
-  flex-wrap: wrap !important;
-  gap: 12px !important;
-}
-
-/* Base común */
-.inventario-tabla td.acciones button {
-  min-width: 85px !important;
-  padding: 9px 14px !important;
-
-  margin: 0 !important;
-
-  border-radius: 8px !important;
-  border: 1px solid transparent !important;
-
-  color: #ffffff !important;
-
-  font-size: 14px !important;
-  font-weight: 600 !important;
-
-  cursor: pointer !important;
-
-  transition:
-    transform 0.2s ease,
-    box-shadow 0.2s ease,
-    background 0.2s ease !important;
-}
-
-/* ENTRADA */
 .inventario-tabla td.acciones .btn-entry {
   background: #059669 !important;
   border-color: #10b981 !important;
@@ -490,11 +180,17 @@
 
 .inventario-tabla td.acciones .btn-entry:hover {
   background: #047857 !important;
-  box-shadow: 0 0 12px rgba(16, 185, 129, 0.45) !important;
+
+  box-shadow:
+    0 0 12px rgba(16, 185, 129, 0.45);
+
   transform: translateY(-2px);
 }
 
-/* SALIDA */
+/* =====================================================
+   BOTÓN SALIDA
+===================================================== */
+
 .inventario-tabla td.acciones .btn-exit {
   background: #d97706 !important;
   border-color: #f59e0b !important;
@@ -502,17 +198,27 @@
 
 .inventario-tabla td.acciones .btn-exit:hover:not(:disabled) {
   background: #b45309 !important;
-  box-shadow: 0 0 12px rgba(245, 158, 11, 0.45) !important;
+
+  box-shadow:
+    0 0 12px rgba(245, 158, 11, 0.45);
+
   transform: translateY(-2px);
 }
 
 .inventario-tabla td.acciones .btn-exit:disabled {
   background: #4b5563 !important;
-  opacity: 0.5 !important;
-  cursor: not-allowed !important;
+
+  border-color: #6b7280 !important;
+
+  opacity: 0.55;
+
+  cursor: not-allowed;
 }
 
-/* EDITAR */
+/* =====================================================
+   BOTÓN EDITAR
+===================================================== */
+
 .inventario-tabla td.acciones .btn-edit {
   background: #2563eb !important;
   border-color: #3b82f6 !important;
@@ -520,11 +226,17 @@
 
 .inventario-tabla td.acciones .btn-edit:hover {
   background: #1d4ed8 !important;
-  box-shadow: 0 0 12px rgba(59, 130, 246, 0.45) !important;
+
+  box-shadow:
+    0 0 12px rgba(59, 130, 246, 0.45);
+
   transform: translateY(-2px);
 }
 
-/* ELIMINAR */
+/* =====================================================
+   BOTÓN ELIMINAR
+===================================================== */
+
 .inventario-tabla td.acciones .btn-delete {
   background: #dc2626 !important;
   border-color: #ef4444 !important;
@@ -532,19 +244,216 @@
 
 .inventario-tabla td.acciones .btn-delete:hover {
   background: #b91c1c !important;
-  box-shadow: 0 0 12px rgba(239, 68, 68, 0.45) !important;
+
+  box-shadow:
+    0 0 12px rgba(239, 68, 68, 0.45);
+
   transform: translateY(-2px);
 }
 
-/* RESPONSIVE */
+/* =====================================================
+   MENSAJES
+===================================================== */
+
+.error {
+  color: #ff4d5f;
+
+  text-align: center;
+
+  margin-bottom: 12px;
+}
+
+.success {
+  color: #10b981;
+
+  text-align: center;
+
+  margin-bottom: 12px;
+}
+
+.empty {
+  text-align: center;
+
+  margin-top: 15px;
+}
+
+/* =====================================================
+   MODAL EDITAR
+===================================================== */
+
+.modal {
+  position: fixed;
+
+  inset: 0;
+
+  background: rgba(0, 0, 20, 0.85);
+
+  backdrop-filter: blur(6px);
+
+  display: flex;
+
+  justify-content: center;
+  align-items: center;
+
+  z-index: 9999;
+}
+
+/* CARD EXCLUSIVA DEL MODAL */
+
+.modal .modal-card {
+  background:
+    linear-gradient(
+      145deg,
+      #020b3a,
+      #04134f
+    );
+
+  padding: 32px;
+
+  width: 420px;
+  max-width: 92%;
+
+  border-radius: 16px;
+
+  box-shadow:
+    0 0 30px rgba(0, 229, 255, 0.8),
+    inset 0 0 12px rgba(0, 229, 255, 0.15);
+
+  color: #00e5ff;
+
+  animation: modalZoom 0.25s ease;
+}
+
+/* =====================================================
+   TÍTULO DEL MODAL
+===================================================== */
+
+.modal .modal-card h3 {
+  text-align: center;
+
+  margin-bottom: 20px;
+
+  font-size: 20px;
+}
+
+/* =====================================================
+   INPUTS DEL MODAL
+===================================================== */
+
+.modal .modal-card input {
+  width: 100%;
+
+  background: rgba(0, 0, 30, 0.85);
+
+  border: 1px solid #00e5ff;
+  border-radius: 8px;
+
+  padding: 12px;
+
+  margin-bottom: 14px;
+
+  color: #ffffff;
+}
+
+.modal .modal-card input:focus {
+  outline: none;
+
+  box-shadow:
+    0 0 10px #00e5ff;
+}
+
+/* =====================================================
+   ACCIONES DEL MODAL
+===================================================== */
+
+.modal .modal-actions {
+  display: flex;
+
+  justify-content: space-between;
+
+  gap: 12px;
+
+  margin-top: 20px;
+}
+
+.modal .modal-actions button {
+  width: 48%;
+
+  padding: 10px;
+
+  border-radius: 8px;
+  border: none;
+
+  font-weight: bold;
+
+  cursor: pointer;
+}
+
+/* GUARDAR */
+
+.modal .btn-save {
+  background: #059669;
+  color: white;
+}
+
+.modal .btn-save:hover {
+  background: #047857;
+}
+
+/* CANCELAR */
+
+.modal .btn-cancel {
+  background: #dc2626;
+  color: white;
+}
+
+.modal .btn-cancel:hover {
+  background: #b91c1c;
+}
+
+/* =====================================================
+   ANIMACIÓN MODAL
+===================================================== */
+
+@keyframes modalZoom {
+  from {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
 @media (max-width: 900px) {
+  .inventario-container {
+    padding: 14px;
+  }
+
+  .inventario-tabla th,
+  .inventario-tabla td {
+    padding: 10px 6px;
+
+    font-size: 13px;
+  }
+
   .inventario-tabla td.acciones {
-    gap: 7px !important;
+    white-space: normal;
   }
 
   .inventario-tabla td.acciones button {
-    min-width: 72px !important;
-    padding: 8px 10px !important;
-    font-size: 12px !important;
+    min-width: 72px;
+
+    padding: 8px 10px;
+
+    margin: 4px;
+
+    font-size: 12px;
   }
 }
