@@ -1,80 +1,337 @@
 const express = require("express");
 const router = express.Router();
+
 const Producto = require("../models/Producto");
 const Movimiento = require("../models/Movimiento");
 
-// Obtener todos los productos
+// =====================================================
+// OBTENER TODOS LOS PRODUCTOS
+// =====================================================
 router.get("/", async (req, res) => {
   try {
     const productos = await Producto.find();
+
     res.json(productos);
   } catch (error) {
-    res.status(500).json({ msg: "Error al obtener productos" });
+    console.error(
+      "Error al obtener productos:",
+      error
+    );
+
+    res.status(500).json({
+      msg: "Error al obtener productos",
+    });
   }
 });
 
-// Crear producto y registrar movimiento
+// =====================================================
+// CREAR PRODUCTO
+// =====================================================
 router.post("/", async (req, res) => {
   try {
-    const { nombre, categoria, precio, stock } = req.body;
+    const {
+      nombre,
+      categoria,
+      precio,
+      stock,
+    } = req.body;
 
-    if (!nombre || !categoria || precio == null || stock == null) {
-      return res.status(400).json({ msg: "Todos los campos son obligatorios" });
+    // Validar campos obligatorios
+    if (
+      !nombre ||
+      !categoria ||
+      precio === undefined ||
+      stock === undefined
+    ) {
+      return res.status(400).json({
+        msg: "Todos los campos son obligatorios",
+      });
     }
 
-    const nuevoProducto = new Producto({ nombre, categoria, precio, stock });
-    const productoGuardado = await nuevoProducto.save();
+    const nombreLimpio =
+      String(nombre).trim();
 
-    const movimiento = new Movimiento({
-      producto: productoGuardado._id,
-      tipo: "entrada",
-      cantidad: stock,
-      fecha: new Date(),
-    });
+    const categoriaLimpia =
+      String(categoria).trim();
 
-    await movimiento.save();
-    res.status(201).json(productoGuardado);
+    const precioNumero =
+      Number(precio);
+
+    const stockNumero =
+      Number(stock);
+
+    // Validar nombre
+    if (!nombreLimpio) {
+      return res.status(400).json({
+        msg: "El nombre es obligatorio",
+      });
+    }
+
+    // Validar categoría
+    if (!categoriaLimpia) {
+      return res.status(400).json({
+        msg: "La categoría es obligatoria",
+      });
+    }
+
+    // Validar precio
+    if (
+      !Number.isFinite(precioNumero) ||
+      precioNumero <= 0
+    ) {
+      return res.status(400).json({
+        msg: "El precio debe ser mayor que 0",
+      });
+    }
+
+    // Validar stock
+    if (
+      !Number.isInteger(stockNumero) ||
+      stockNumero < 0
+    ) {
+      return res.status(400).json({
+        msg:
+          "El stock debe ser un número entero igual o mayor que 0",
+      });
+    }
+
+    // Crear producto
+    const nuevoProducto =
+      new Producto({
+        nombre: nombreLimpio,
+        categoria: categoriaLimpia,
+        precio: precioNumero,
+        stock: stockNumero,
+      });
+
+    const productoGuardado =
+      await nuevoProducto.save();
+
+    // Registrar la entrada inicial únicamente
+    // cuando el stock sea mayor que cero.
+    if (stockNumero > 0) {
+      const movimiento =
+        new Movimiento({
+          producto:
+            productoGuardado._id,
+          tipo: "entrada",
+          cantidad: stockNumero,
+          fecha: new Date(),
+        });
+
+      await movimiento.save();
+    }
+
+    res
+      .status(201)
+      .json(productoGuardado);
   } catch (error) {
-    res.status(500).json({ msg: "Error al crear producto" });
+    console.error(
+      "Error al crear producto:",
+      error
+    );
+
+    res.status(500).json({
+      msg: "Error al crear producto",
+    });
   }
 });
 
-// Actualizar producto
+// =====================================================
+// ACTUALIZAR PRODUCTO
+// =====================================================
 router.put("/:id", async (req, res) => {
   try {
-    const producto = await Producto.findById(req.params.id);
-    if (!producto) return res.status(404).json({ msg: "Producto no encontrado" });
+    const producto =
+      await Producto.findById(
+        req.params.id
+      );
 
-    const stockAnterior = producto.stock;
+    if (!producto) {
+      return res.status(404).json({
+        msg: "Producto no encontrado",
+      });
+    }
 
-    producto.nombre = req.body.nombre ?? producto.nombre;
-    producto.categoria = req.body.categoria ?? producto.categoria;
-    producto.precio = req.body.precio ?? producto.precio;
-    producto.stock = req.body.stock ?? producto.stock;
+    // Guardamos el stock antes de modificarlo.
+    const stockAnterior =
+      Number(producto.stock);
 
-    const actualizado = await producto.save();
+    // =================================================
+    // ACTUALIZAR NOMBRE
+    // =================================================
+    if (req.body.nombre !== undefined) {
+      const nombre =
+        String(
+          req.body.nombre
+        ).trim();
 
-    if (actualizado.stock !== stockAnterior) {
-      const tipo = actualizado.stock > stockAnterior ? "entrada" : "salida";
-      const cantidad = Math.abs(actualizado.stock - stockAnterior);
+      if (!nombre) {
+        return res.status(400).json({
+          msg:
+            "El nombre no puede estar vacío",
+        });
+      }
 
-      await new Movimiento({ producto: actualizado._id, tipo, cantidad, fecha: new Date() }).save();
+      producto.nombre = nombre;
+    }
+
+    // =================================================
+    // ACTUALIZAR CATEGORÍA
+    // =================================================
+    if (
+      req.body.categoria !==
+      undefined
+    ) {
+      const categoria =
+        String(
+          req.body.categoria
+        ).trim();
+
+      if (!categoria) {
+        return res.status(400).json({
+          msg:
+            "La categoría no puede estar vacía",
+        });
+      }
+
+      producto.categoria =
+        categoria;
+    }
+
+    // =================================================
+    // ACTUALIZAR PRECIO
+    // =================================================
+    if (
+      req.body.precio !== undefined
+    ) {
+      const nuevoPrecio =
+        Number(req.body.precio);
+
+      if (
+        !Number.isFinite(
+          nuevoPrecio
+        ) ||
+        nuevoPrecio <= 0
+      ) {
+        return res.status(400).json({
+          msg:
+            "El precio debe ser mayor que 0",
+        });
+      }
+
+      producto.precio =
+        nuevoPrecio;
+    }
+
+    // =================================================
+    // ACTUALIZAR STOCK
+    // =================================================
+    if (
+      req.body.stock !== undefined
+    ) {
+      const nuevoStock =
+        Number(req.body.stock);
+
+      // No permitir decimales ni stock negativo
+      if (
+        !Number.isInteger(
+          nuevoStock
+        ) ||
+        nuevoStock < 0
+      ) {
+        return res.status(400).json({
+          msg:
+            "El stock debe ser un número entero igual o mayor que 0",
+        });
+      }
+
+      producto.stock =
+        nuevoStock;
+    }
+
+    // Guardar producto actualizado
+    const actualizado =
+      await producto.save();
+
+    const stockNuevo =
+      Number(actualizado.stock);
+
+    // =================================================
+    // REGISTRAR ENTRADA O SALIDA
+    // =================================================
+    if (
+      stockNuevo !==
+      stockAnterior
+    ) {
+      const tipo =
+        stockNuevo >
+        stockAnterior
+          ? "entrada"
+          : "salida";
+
+      const cantidad =
+        Math.abs(
+          stockNuevo -
+            stockAnterior
+        );
+
+      const movimiento =
+        new Movimiento({
+          producto:
+            actualizado._id,
+          tipo,
+          cantidad,
+          fecha: new Date(),
+        });
+
+      await movimiento.save();
     }
 
     res.json(actualizado);
   } catch (error) {
-    res.status(500).json({ msg: "Error al actualizar producto" });
+    console.error(
+      "Error al actualizar producto:",
+      error
+    );
+
+    res.status(500).json({
+      msg:
+        "Error al actualizar producto",
+    });
   }
 });
 
-// Eliminar producto
+// =====================================================
+// ELIMINAR PRODUCTO
+// =====================================================
 router.delete("/:id", async (req, res) => {
   try {
-    const eliminado = await Producto.findByIdAndDelete(req.params.id);
-    if (!eliminado) return res.status(404).json({ msg: "Producto no encontrado" });
-    res.json({ msg: "Producto eliminado" });
+    const eliminado =
+      await Producto.findByIdAndDelete(
+        req.params.id
+      );
+
+    if (!eliminado) {
+      return res.status(404).json({
+        msg: "Producto no encontrado",
+      });
+    }
+
+    res.json({
+      msg:
+        "Producto eliminado correctamente",
+    });
   } catch (error) {
-    res.status(500).json({ msg: "Error al eliminar producto" });
+    console.error(
+      "Error al eliminar producto:",
+      error
+    );
+
+    res.status(500).json({
+      msg:
+        "Error al eliminar producto",
+    });
   }
 });
 
