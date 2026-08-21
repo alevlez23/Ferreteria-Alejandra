@@ -1,56 +1,234 @@
 /* =========================================================
-   IMAGEN PRINCIPAL - PRESENTACIÓN MEJORADA
+   LAYOUT PRINCIPAL
+========================================================= */
+
+.layout {
+  display: flex;
+
+  width: 100%;
+
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+
+/* =========================================================
+   CONTENIDO PRINCIPAL
+========================================================= */
+
+.content {
+  flex: 1;
+
+  min-width: 0;
+
+  min-height: 100vh;
+  min-height: 100dvh;
+
+  background:
+    radial-gradient(
+      circle at 52% 0%,
+      rgba(20, 45, 145, 0.45),
+      transparent 42%
+    ),
+    linear-gradient(
+      180deg,
+      #030832 0%,
+      #020611 100%
+    );
+
+  color: var(--text);
+}
+
+
+/* =========================================================
+   PANTALLA DE INICIO
+========================================================= */
+
+.welcome-container {
+  width: 100%;
+
+  max-width: 1500px;
+
+  min-height: 100vh;
+  min-height: 100dvh;
+
+  margin: 0 auto;
+
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+
+  justify-content: flex-start;
+
+  gap: 24px;
+
+  padding:
+    36px
+    clamp(24px, 4vw, 54px)
+    40px;
+}
+
+
+/* =========================================================
+   TARJETA FERRETERÍA ALEJANDRA
+========================================================= */
+
+.welcome-brand {
+  width: min(100%, 460px);
+
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+
+  padding: 22px 30px;
+
+  background:
+    linear-gradient(
+      155deg,
+      rgba(12, 31, 83, 0.92),
+      rgba(3, 13, 42, 0.92)
+    );
+
+  border:
+    1px solid
+    rgba(18, 223, 243, 0.22);
+
+  border-radius: 24px;
+
+  box-shadow:
+    0 18px 45px rgba(0, 0, 0, 0.25),
+    0 0 24px rgba(18, 223, 243, 0.12);
+
+  backdrop-filter: blur(10px);
+}
+
+
+/* =========================================================
+   TEXTO FERRETERÍA
+========================================================= */
+
+.brand-small {
+  color: #c3d1e8;
+
+  font-size: 14px;
+
+  font-weight: 700;
+
+  letter-spacing: 0.32em;
+
+  text-transform: uppercase;
+}
+
+
+/* =========================================================
+   LÍNEA DECORATIVA
+========================================================= */
+
+.brand-line {
+  width: 110px;
+
+  height: 2px;
+
+  margin: 10px 0 8px;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      var(--cyan),
+      transparent
+    );
+
+  border-radius: 999px;
+}
+
+
+/* =========================================================
+   ALEJANDRA
+========================================================= */
+
+.brand-big {
+  margin: 0;
+
+  color: #ffffff;
+
+  font-size:
+    clamp(
+      32px,
+      3vw,
+      42px
+    );
+
+  font-weight: 800;
+
+  letter-spacing: 0.04em;
+
+  line-height: 1.1;
+
+  text-align: center;
+
+  text-shadow:
+    0 0 18px
+    rgba(18, 223, 243, 0.22);
+}
+
+
+/* =========================================================
+   SUBTÍTULO
+========================================================= */
+
+.welcome-subtitle {
+  max-width: 360px;
+
+  margin-top: 14px;
+
+  color: var(--text-soft);
+
+  font-size: 14px;
+
+  line-height: 1.55;
+
+  text-align: center;
+}
+
+
+/* =========================================================
+   CONTENEDOR DE LA IMAGEN
 ========================================================= */
 
 .welcome-image-frame {
   width: min(100%, 1180px);
 
-  /* La altura dependerá de la proporción real de la imagen */
-  height: auto;
-
-  margin-top: 4px;
+  /*
+    Conservamos una imagen panorámica sin permitir
+    que se vuelva exageradamente alta.
+  */
+  height:
+    clamp(
+      360px,
+      52dvh,
+      520px
+    );
 
   overflow: hidden;
 
-  background:
-    linear-gradient(
-      145deg,
-      rgba(7, 17, 43, 0.95),
-      rgba(3, 8, 28, 0.95)
-    );
+  position: relative;
+
+  background: #07112b;
 
   border:
     1px solid
-    rgba(18, 223, 243, 0.28);
+    rgba(18, 223, 243, 0.22);
 
   border-radius: 24px;
 
   box-shadow:
-    0 20px 50px rgba(0, 0, 0, 0.32),
-    0 0 22px rgba(18, 223, 243, 0.10);
-
-  position: relative;
-}
-
-
-/* Línea luminosa muy suave */
-
-.welcome-image-frame::before {
-  content: "";
-
-  position: absolute;
-
-  inset: 0;
-
-  border-radius: inherit;
-
-  pointer-events: none;
-
-  box-shadow:
-    inset 0 0 20px
-    rgba(18, 223, 243, 0.05);
-
-  z-index: 1;
+    0 20px 48px
+      rgba(0, 0, 0, 0.30),
+    0 0 18px
+      rgba(18, 223, 243, 0.08);
 }
 
 
@@ -59,17 +237,19 @@
 ========================================================= */
 
 .welcome-image {
-  width: 100%;
-
-  height: auto;
-
   display: block;
 
-  object-fit: contain;
+  width: 100%;
 
-  object-position: center;
+  height: 100%;
 
-  border-radius: 23px;
+  /*
+    COVER conserva la presentación panorámica.
+    TOP evita cortar la cabeza de la persona.
+  */
+  object-fit: cover;
+
+  object-position: center top;
 
   transition:
     transform 0.35s ease,
@@ -77,14 +257,37 @@
 }
 
 
-/* Hover muy ligero */
+/* =========================================================
+   EFECTO SUAVE AL PASAR EL MOUSE
+========================================================= */
 
 .welcome-image-frame:hover .welcome-image {
-  transform: scale(1.006);
+  transform: scale(1.008);
 
   filter:
     saturate(1.02)
     contrast(1.01);
+}
+
+
+/* =========================================================
+   PRODUCTOS
+========================================================= */
+
+.productos-container {
+  width: min(100%, 1540px);
+
+  min-height: 100vh;
+  min-height: 100dvh;
+
+  margin: 0 auto;
+
+  padding:
+    clamp(
+      24px,
+      3.5vw,
+      52px
+    );
 }
 
 
@@ -94,14 +297,36 @@
 
 @media (max-width: 900px) {
 
+  .welcome-container {
+    gap: 20px;
+
+    padding:
+      28px
+      20px
+      32px;
+  }
+
+  .welcome-brand {
+    width: min(100%, 420px);
+
+    padding: 20px 24px;
+  }
+
   .welcome-image-frame {
     width: 100%;
+
+    height:
+      clamp(
+        320px,
+        48dvh,
+        430px
+      );
 
     border-radius: 20px;
   }
 
-  .welcome-image {
-    border-radius: 19px;
+  .productos-container {
+    padding: 24px 18px;
   }
 }
 
@@ -112,21 +337,95 @@
 
 @media (max-width: 600px) {
 
+  .welcome-container {
+    gap: 18px;
+
+    padding:
+      20px
+      12px
+      24px;
+  }
+
+  .welcome-brand {
+    padding:
+      18px 18px;
+
+    border-radius:
+      18px;
+  }
+
+  .brand-small {
+    font-size: 11px;
+
+    letter-spacing: 0.25em;
+  }
+
+  .brand-line {
+    width: 80px;
+  }
+
+  .brand-big {
+    font-size: 30px;
+  }
+
+  .welcome-subtitle {
+    max-width: 290px;
+
+    font-size: 13px;
+  }
+
   .welcome-image-frame {
-    width: 100%;
+    height: 300px;
 
     border-radius: 16px;
-
-    box-shadow:
-      0 14px 32px rgba(0, 0, 0, 0.28),
-      0 0 15px rgba(18, 223, 243, 0.08);
   }
 
   .welcome-image {
+    /*
+      En móvil seguimos mostrando prioritariamente
+      la parte superior de la fotografía.
+    */
+    object-position: center top;
+  }
+
+  .productos-container {
+    padding: 18px 12px;
+  }
+}
+
+
+/* =========================================================
+   PANTALLAS MUY PEQUEÑAS
+========================================================= */
+
+@media (max-width: 420px) {
+
+  .welcome-container {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  .welcome-brand {
     width: 100%;
+  }
 
-    height: auto;
+  .welcome-image-frame {
+    height: 260px;
+  }
+}
 
-    border-radius: 15px;
+
+/* =========================================================
+   ACCESIBILIDAD
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+  .welcome-image {
+    transition: none;
+  }
+
+  .welcome-image-frame:hover .welcome-image {
+    transform: none;
   }
 }
