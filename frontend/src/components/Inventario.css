@@ -318,3 +318,131 @@
     font-size: 12px;
   }
 }
+
+/* =====================================================
+   ACCIONES DEL INVENTARIO
+   Entrada | Salida | Editar | Eliminar
+===================================================== */
+
+.inventario-tabla td.acciones {
+  text-align: center;
+  white-space: nowrap;
+}
+
+/* Separación real entre botones */
+.inventario-tabla td.acciones button {
+  margin: 4px 6px !important;
+  padding: 9px 15px !important;
+
+  min-width: 82px;
+
+  border: none !important;
+  border-radius: 8px !important;
+
+  color: white !important;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    opacity 0.2s ease;
+}
+
+/* =========================
+   ENTRADA
+========================= */
+
+.inventario-tabla td.acciones .btn-entry {
+  background: #059669 !important;
+}
+
+.inventario-tabla td.acciones .btn-entry:hover {
+  background: #047857 !important;
+
+  box-shadow:
+    0 0 12px rgba(5, 150, 105, 0.5);
+
+  transform: translateY(-2px);
+}
+
+/* =========================
+   SALIDA
+========================= */
+
+.inventario-tabla td.acciones .btn-exit {
+  background: #d97706 !important;
+}
+
+.inventario-tabla td.acciones .btn-exit:hover:not(:disabled) {
+  background: #b45309 !important;
+
+  box-shadow:
+    0 0 12px rgba(217, 119, 6, 0.5);
+
+  transform: translateY(-2px);
+}
+
+/* Salida deshabilitada cuando no hay stock */
+
+.inventario-tabla td.acciones .btn-exit:disabled {
+  background: #4b5563 !important;
+
+  opacity: 0.55;
+
+  cursor: not-allowed;
+}
+
+/* =========================
+   EDITAR
+========================= */
+
+.inventario-tabla td.acciones .btn-edit {
+  background: #2563eb !important;
+}
+
+.inventario-tabla td.acciones .btn-edit:hover {
+  background: #1d4ed8 !important;
+
+  box-shadow:
+    0 0 12px rgba(37, 99, 235, 0.45);
+
+  transform: translateY(-2px);
+}
+
+/* =========================
+   ELIMINAR
+========================= */
+
+.inventario-tabla td.acciones .btn-delete {
+  background: #dc2626 !important;
+}
+
+.inventario-tabla td.acciones .btn-delete:hover {
+  background: #b91c1c !important;
+
+  box-shadow:
+    0 0 12px rgba(220, 38, 38, 0.45);
+
+  transform: translateY(-2px);
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 900px) {
+  .inventario-tabla td.acciones {
+    white-space: normal;
+  }
+
+  .inventario-tabla td.acciones button {
+    margin: 4px !important;
+    min-width: 72px;
+    padding: 8px 10px !important;
+    font-size: 12px;
+  }
+}
