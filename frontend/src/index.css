@@ -10,24 +10,19 @@
     BlinkMacSystemFont,
     sans-serif;
 
-  /* Fondos */
   --bg-deep: #020611;
   --bg-main: #03082c;
   --bg-panel: #06102a;
 
-  /* Color principal */
   --cyan: #12dff3;
   --cyan-strong: #00bfd4;
   --cyan-soft: rgba(18, 223, 243, 0.16);
 
-  /* Textos */
   --text: #f6f8ff;
   --text-soft: #aebbd1;
 
-  /* Bordes */
   --border: rgba(18, 223, 243, 0.22);
 
-  /* Acciones */
   --green: #059669;
   --green-hover: #047857;
 
@@ -40,22 +35,17 @@
   --red: #dc2626;
   --red-hover: #b91c1c;
 
-  /* Radios */
   --radius-sm: 10px;
   --radius-md: 16px;
   --radius-lg: 24px;
 
-  /* Sombras */
-  --shadow-soft:
-    0 18px 45px rgba(0, 0, 0, 0.28);
-
-  --shadow-cyan:
-    0 0 24px rgba(18, 223, 243, 0.16);
+  --shadow-soft: 0 18px 45px rgba(0, 0, 0, 0.28);
+  --shadow-cyan: 0 0 24px rgba(18, 223, 243, 0.16);
 }
 
 
 /* =========================================================
-   RESET GENERAL
+   RESET
 ========================================================= */
 
 * {
@@ -64,26 +54,14 @@
   box-sizing: border-box;
 }
 
-
-/* =========================================================
-   HTML
-========================================================= */
-
 html {
   min-width: 320px;
   min-height: 100%;
-
   background: var(--bg-deep);
 }
 
-
-/* =========================================================
-   BODY
-========================================================= */
-
 body {
   min-width: 320px;
-
   min-height: 100vh;
   min-height: 100dvh;
 
@@ -103,11 +81,6 @@ body {
 
   color: var(--text);
 }
-
-
-/* =========================================================
-   CONTENEDOR PRINCIPAL DE REACT
-========================================================= */
 
 #root {
   min-height: 100vh;
@@ -133,11 +106,6 @@ img {
   max-width: 100%;
 }
 
-
-/* =========================================================
-   SELECCIÓN DE TEXTO
-========================================================= */
-
 ::selection {
   background: rgba(18, 223, 243, 0.28);
   color: #ffffff;
@@ -159,10 +127,8 @@ img {
 
 ::-webkit-scrollbar-thumb {
   background: #30405f;
-
-  border-radius: 999px;
-
   border: 2px solid #020611;
+  border-radius: 999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
