@@ -11,6 +11,8 @@
   position: sticky;
   top: 0;
 
+  z-index: 20;
+
   flex-shrink: 0;
 
   display: flex;
@@ -38,7 +40,7 @@
 
 
 /* =========================================================
-   TÍTULO DEL MENÚ
+   TÍTULO
 ========================================================= */
 
 .sidebar h2 {
@@ -47,7 +49,6 @@
   color: #f5f8ff;
 
   font-size: 17px;
-
   font-weight: 700;
 
   letter-spacing: 0.08em;
@@ -71,7 +72,7 @@
 
 
 /* =========================================================
-   BOTONES DEL MENÚ
+   BOTONES
 ========================================================= */
 
 .sidebar nav button,
@@ -91,16 +92,10 @@
   border-radius: 14px;
 
   font-size: 15px;
-
   font-weight: 500;
 
   cursor: pointer;
 }
-
-
-/* =========================================================
-   BOTONES DE NAVEGACIÓN
-========================================================= */
 
 .sidebar nav button {
   background: transparent;
@@ -117,7 +112,9 @@
 }
 
 
-/* Iconos */
+/* =========================================================
+   ICONOS
+========================================================= */
 
 .sidebar nav button svg,
 .logout svg {
@@ -130,7 +127,7 @@
 
 
 /* =========================================================
-   HOVER DEL MENÚ
+   HOVER
 ========================================================= */
 
 .sidebar nav button:hover {
@@ -146,7 +143,7 @@
 
 
 /* =========================================================
-   BOTÓN ACTIVO
+   OPCIÓN ACTIVA
 ========================================================= */
 
 .sidebar nav button.active {
@@ -192,9 +189,6 @@
     transform 0.22s ease;
 }
 
-
-/* Hover salir */
-
 .logout:hover {
   background:
     rgba(220, 38, 38, 0.14);
@@ -210,15 +204,27 @@
 
 
 /* =========================================================
-   RESPONSIVE - TABLET
+   FOCUS CON TECLADO
+========================================================= */
+
+.sidebar button:focus-visible {
+  outline:
+    2px solid
+    var(--cyan);
+
+  outline-offset: 3px;
+}
+
+
+/* =========================================================
+   TABLET
 ========================================================= */
 
 @media (max-width: 900px) {
   .sidebar {
     width: 88px;
 
-    padding:
-      20px 12px;
+    padding: 20px 12px;
   }
 
   .sidebar h2 {
@@ -229,8 +235,7 @@
   .logout {
     justify-content: center;
 
-    padding:
-      14px 10px;
+    padding: 14px 10px;
   }
 
   .sidebar nav button span,
@@ -241,7 +246,7 @@
 
 
 /* =========================================================
-   RESPONSIVE - MÓVIL
+   MÓVIL
 ========================================================= */
 
 @media (max-width: 560px) {
