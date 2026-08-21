@@ -12,43 +12,27 @@ export default function Dashboard() {
   // CERRAR SESIÓN
   // =====================================================
   const cerrarSesion = () => {
-    // Eliminamos cualquier información de sesión guardada.
     localStorage.removeItem("token");
     localStorage.removeItem("user");
 
-    /*
-      BASE_URL permite que la redirección funcione tanto en:
-
-      Render:
-      /
-
-      GitHub Pages:
-      /Ferreteria_Alejandra/
-    */
+    // Compatible con Render y GitHub Pages
     window.location.href = import.meta.env.BASE_URL;
   };
 
   return (
     <div className="layout">
-      {/* ================================================
-          MENÚ LATERAL
-      ================================================ */}
+      {/* MENÚ LATERAL */}
       <Navbar
         setVista={setVista}
         vista={vista}
         cerrarSesion={cerrarSesion}
       />
 
-      {/* ================================================
-          CONTENIDO PRINCIPAL
-      ================================================ */}
+      {/* CONTENIDO */}
       <main className="content">
-        {/* ==============================================
-            INICIO
-        ============================================== */}
+        {/* INICIO */}
         {vista === "inicio" && (
           <section className="welcome-container">
-            {/* Logo / nombre de la ferretería */}
             <div className="welcome-brand">
               <span className="brand-small">
                 Ferretería
@@ -61,12 +45,11 @@ export default function Dashboard() {
               </h1>
 
               <p className="welcome-subtitle">
-                Gestión de inventario, entradas y
-                salidas en un solo lugar.
+                Gestión de inventario, entradas y salidas
+                en un solo lugar.
               </p>
             </div>
 
-            {/* Imagen principal */}
             <div className="welcome-image-frame">
               <img
                 src={`${import.meta.env.BASE_URL}ferreteria.png`}
@@ -79,20 +62,15 @@ export default function Dashboard() {
           </section>
         )}
 
-        {/* ==============================================
-            PRODUCTOS
-        ============================================== */}
+        {/* PRODUCTOS */}
         {vista === "productos" && (
           <section className="productos-container">
             <FormProducto />
-
             <ListaProductos />
           </section>
         )}
 
-        {/* ==============================================
-            MOVIMIENTOS
-        ============================================== */}
+        {/* MOVIMIENTOS */}
         {vista === "movimientos" && (
           <Movimientos />
         )}
