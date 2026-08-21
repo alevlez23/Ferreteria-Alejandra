@@ -1,5 +1,5 @@
 /* =========================================================
-   CONTENEDOR DE MOVIMIENTOS
+   MOVIMIENTOS
 ========================================================= */
 
 .movimientos-container {
@@ -24,11 +24,9 @@
 ========================================================= */
 
 .movimientos-container .titulo {
-  margin-bottom:
-    30px;
+  margin-bottom: 30px;
 
-  color:
-    var(--cyan);
+  color: var(--cyan);
 
   font-size:
     clamp(
@@ -37,27 +35,22 @@
       38px
     );
 
-  font-weight:
-    800;
+  font-weight: 800;
 
-  text-align:
-    center;
+  letter-spacing: 0.02em;
 
-  letter-spacing:
-    0.02em;
+  text-align: center;
 }
 
 
 /* =========================================================
-   CONTENEDOR DE LA TABLA
+   TABLA
 ========================================================= */
 
 .movimientos-table {
-  width:
-    100%;
+  width: 100%;
 
-  overflow-x:
-    auto;
+  overflow-x: auto;
 
   background:
     rgba(4, 11, 36, 0.78);
@@ -66,8 +59,7 @@
     1px solid
     rgba(18, 223, 243, 0.16);
 
-  border-radius:
-    18px;
+  border-radius: 18px;
 
   box-shadow:
     0 18px 45px
@@ -76,16 +68,14 @@
 
 
 /* =========================================================
-   ESTRUCTURA DE COLUMNAS
+   COLUMNAS
 ========================================================= */
 
 .movimientos-header,
 .movimientos-row {
-  min-width:
-    760px;
+  min-width: 760px;
 
-  display:
-    grid;
+  display: grid;
 
   grid-template-columns:
     minmax(220px, 2fr)
@@ -93,14 +83,11 @@
     minmax(120px, 1fr)
     minmax(150px, 1fr);
 
-  align-items:
-    center;
+  align-items: center;
 
-  gap:
-    16px;
+  gap: 16px;
 
-  padding:
-    17px 22px;
+  padding: 17px 22px;
 }
 
 
@@ -112,17 +99,12 @@
   background:
     rgba(12, 52, 78, 0.76);
 
-  color:
-    var(--cyan);
+  color: var(--cyan);
 
-  font-size:
-    15px;
+  font-size: 15px;
+  font-weight: 800;
 
-  font-weight:
-    800;
-
-  letter-spacing:
-    0.02em;
+  letter-spacing: 0.02em;
 }
 
 
@@ -131,23 +113,17 @@
 ========================================================= */
 
 .movimientos-row {
-  position:
-    relative;
+  position: relative;
 
-  color:
-    #f8faff;
+  color: #f8faff;
 
   border-top:
     1px solid
     rgba(18, 223, 243, 0.14);
 
   transition:
-    background 0.18s ease,
-    transform 0.18s ease;
+    background 0.18s ease;
 }
-
-
-/* Hover suave */
 
 .movimientos-row:hover {
   background:
@@ -156,7 +132,7 @@
 
 
 /* =========================================================
-   INDICADOR DE ENTRADA
+   INDICADORES LATERALES
 ========================================================= */
 
 .movimientos-row.entrada {
@@ -164,11 +140,6 @@
     4px solid
     #20d88f;
 }
-
-
-/* =========================================================
-   INDICADOR DE SALIDA
-========================================================= */
 
 .movimientos-row.salida {
   border-left:
@@ -182,64 +153,41 @@
 ========================================================= */
 
 .tipo {
-  width:
-    fit-content;
+  width: fit-content;
 
-  display:
-    inline-flex;
+  display: inline-flex;
 
-  align-items:
-    center;
+  align-items: center;
+  justify-content: center;
 
-  justify-content:
-    center;
-
-  padding:
-    6px 11px;
+  padding: 6px 11px;
 
   border:
     1px solid transparent;
 
-  border-radius:
-    999px;
+  border-radius: 999px;
 
-  font-size:
-    12px;
+  font-size: 12px;
+  font-weight: 800;
 
-  font-weight:
-    800;
-
-  letter-spacing:
-    0.05em;
+  letter-spacing: 0.05em;
 }
-
-
-/* =========================================================
-   BADGE ENTRADA
-========================================================= */
 
 .tipo.entrada {
   background:
     rgba(5, 150, 105, 0.12);
 
-  color:
-    #45e2aa;
+  color: #45e2aa;
 
   border-color:
     rgba(52, 211, 153, 0.34);
 }
 
-
-/* =========================================================
-   BADGE SALIDA
-========================================================= */
-
 .tipo.salida {
   background:
     rgba(220, 38, 38, 0.11);
 
-  color:
-    #ff7b84;
+  color: #ff7b84;
 
   border-color:
     rgba(248, 113, 113, 0.34);
@@ -251,11 +199,9 @@
 ========================================================= */
 
 .movimientos-row span:first-child {
-  color:
-    #f5f8ff;
+  color: #f5f8ff;
 
-  font-weight:
-    600;
+  font-weight: 600;
 }
 
 
@@ -264,26 +210,15 @@
 ========================================================= */
 
 .movimientos-row span:nth-child(3) {
-  font-weight:
-    800;
+  font-weight: 800;
 }
 
-
-/* Cantidades de entrada */
-
-.movimientos-row.entrada
-span:nth-child(3) {
-  color:
-    #45e2aa;
+.movimientos-row.entrada span:nth-child(3) {
+  color: #45e2aa;
 }
 
-
-/* Cantidades de salida */
-
-.movimientos-row.salida
-span:nth-child(3) {
-  color:
-    #ff7b84;
+.movimientos-row.salida span:nth-child(3) {
+  color: #ff7b84;
 }
 
 
@@ -291,49 +226,37 @@ span:nth-child(3) {
    FECHA
 ========================================================= */
 
-.movimientos-row
-span:last-child {
-  color:
-    var(--text-soft);
+.movimientos-row span:last-child {
+  color: var(--text-soft);
 
-  font-size:
-    14px;
+  font-size: 14px;
 }
 
 
 /* =========================================================
-   MENSAJE DE ERROR
+   ERROR
 ========================================================= */
 
-.movimientos-container
-.error {
-  margin-bottom:
-    16px;
+.movimientos-container .error {
+  margin-bottom: 16px;
 
-  padding:
-    12px 16px;
+  padding: 12px 16px;
 
   background:
     rgba(220, 38, 38, 0.08);
 
-  color:
-    #ff7b84;
+  color: #ff7b84;
 
   border:
     1px solid
     rgba(248, 113, 113, 0.18);
 
-  border-radius:
-    10px;
+  border-radius: 10px;
 
-  font-size:
-    14px;
+  font-size: 14px;
+  font-weight: 600;
 
-  font-weight:
-    600;
-
-  text-align:
-    center;
+  text-align: center;
 }
 
 
@@ -341,83 +264,62 @@ span:last-child {
    SIN MOVIMIENTOS
 ========================================================= */
 
-.movimientos-container
-.empty {
-  min-width:
-    760px;
+.movimientos-container .empty {
+  min-width: 760px;
 
-  padding:
-    34px;
+  padding: 34px;
 
-  color:
-    var(--text-soft);
+  color: var(--text-soft);
 
-  font-size:
-    15px;
+  font-size: 15px;
 
-  text-align:
-    center;
+  text-align: center;
 }
 
 
 /* =========================================================
-   RESPONSIVE - TABLET
+   TABLET
 ========================================================= */
 
 @media (max-width: 900px) {
-
   .movimientos-container {
-    padding:
-      28px 18px;
+    padding: 28px 18px;
   }
 
   .movimientos-header,
   .movimientos-row {
-    padding:
-      15px 18px;
+    padding: 15px 18px;
   }
 
-  .movimientos-header {
-    font-size:
-      14px;
-  }
-
+  .movimientos-header,
   .movimientos-row {
-    font-size:
-      14px;
+    font-size: 14px;
   }
 }
 
 
 /* =========================================================
-   RESPONSIVE - MÓVIL
+   MÓVIL
 ========================================================= */
 
 @media (max-width: 600px) {
-
   .movimientos-container {
-    padding:
-      22px 12px;
+    padding: 22px 12px;
   }
 
-  .movimientos-container
-  .titulo {
-    margin-bottom:
-      22px;
+  .movimientos-container .titulo {
+    margin-bottom: 22px;
 
-    font-size:
-      27px;
+    font-size: 27px;
   }
 
   .movimientos-table {
-    border-radius:
-      14px;
+    border-radius: 14px;
   }
 
   .movimientos-header,
   .movimientos-row {
-    padding:
-      14px 16px;
+    padding: 14px 16px;
   }
 }
 
@@ -427,9 +329,7 @@ span:last-child {
 ========================================================= */
 
 @media (prefers-reduced-motion: reduce) {
-
   .movimientos-row {
-    transition:
-      none;
+    transition: none;
   }
 }
