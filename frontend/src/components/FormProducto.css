@@ -1,9 +1,10 @@
 /* =========================================================
-   CONTENEDOR DEL FORMULARIO
+   CONTENEDOR
 ========================================================= */
 
 .form-container {
   display: flex;
+
   justify-content: center;
 
   padding: 6px 0 26px;
@@ -11,7 +12,7 @@
 
 
 /* =========================================================
-   TARJETA DEL FORMULARIO
+   TARJETA
 ========================================================= */
 
 .card-form {
@@ -40,16 +41,13 @@
     1px solid
     rgba(18, 223, 243, 0.22);
 
-  border-radius:
-    20px;
+  border-radius: 20px;
 
   box-shadow:
     var(--shadow-soft),
-    0 0 26px
-    rgba(18, 223, 243, 0.15);
+    0 0 26px rgba(18, 223, 243, 0.15);
 
-  color:
-    var(--text);
+  color: var(--text);
 }
 
 
@@ -58,11 +56,9 @@
 ========================================================= */
 
 .card-form h2 {
-  margin-bottom:
-    12px;
+  margin-bottom: 12px;
 
-  color:
-    var(--cyan);
+  color: var(--cyan);
 
   font-size:
     clamp(
@@ -71,43 +67,35 @@
       30px
     );
 
-  font-weight:
-    800;
+  font-weight: 800;
 
-  text-align:
-    center;
+  text-align: center;
 }
 
 
 /* =========================================================
-   CAMPOS
+   INPUTS
 ========================================================= */
 
 .card-form input {
-  width:
-    100%;
+  width: 100%;
 
-  min-height:
-    52px;
+  min-height: 52px;
 
-  padding:
-    0 16px;
+  padding: 0 16px;
 
   background:
     rgba(2, 7, 30, 0.86);
 
-  color:
-    #ffffff;
+  color: #ffffff;
 
   border:
     1px solid
     rgba(18, 223, 243, 0.72);
 
-  border-radius:
-    12px;
+  border-radius: 12px;
 
-  font-size:
-    15px;
+  font-size: 15px;
 
   transition:
     border-color 0.2s ease,
@@ -115,26 +103,17 @@
     background 0.2s ease;
 }
 
-
-/* Placeholder */
-
 .card-form input::placeholder {
-  color:
-    #8794aa;
+  color: #8794aa;
 }
 
-
-/* Focus */
-
 .card-form input:focus {
-  outline:
-    none;
+  outline: none;
 
   background:
     rgba(5, 14, 48, 0.96);
 
-  border-color:
-    var(--cyan);
+  border-color: var(--cyan);
 
   box-shadow:
     0 0 0 3px
@@ -143,18 +122,15 @@
 
 
 /* =========================================================
-   BOTÓN AGREGAR
+   BOTÓN GUARDAR
 ========================================================= */
 
 .btn-submit {
-  min-height:
-    50px;
+  min-height: 50px;
 
-  margin-top:
-    10px;
+  margin-top: 10px;
 
-  padding:
-    12px 18px;
+  padding: 12px 18px;
 
   background:
     linear-gradient(
@@ -163,20 +139,14 @@
       var(--cyan-strong)
     );
 
-  color:
-    #03111a;
+  color: #03111a;
 
-  border-radius:
-    12px;
+  border-radius: 12px;
 
-  font-size:
-    15px;
+  font-size: 15px;
+  font-weight: 800;
 
-  font-weight:
-    800;
-
-  cursor:
-    pointer;
+  cursor: pointer;
 
   transition:
     transform 0.2s ease,
@@ -184,12 +154,8 @@
     filter 0.2s ease;
 }
 
-
-/* Hover */
-
 .btn-submit:hover {
-  filter:
-    brightness(1.05);
+  filter: brightness(1.05);
 
   box-shadow:
     0 8px 24px
@@ -199,12 +165,16 @@
     translateY(-1px);
 }
 
-
-/* Click */
-
 .btn-submit:active {
   transform:
     translateY(0);
+}
+
+.btn-submit:focus-visible {
+  outline:
+    2px solid #ffffff;
+
+  outline-offset: 3px;
 }
 
 
@@ -213,53 +183,39 @@
 ========================================================= */
 
 .card-form .error {
-  color:
-    #ff707c;
+  color: #ff707c;
 
-  font-size:
-    14px;
+  font-size: 14px;
 
-  text-align:
-    center;
+  text-align: center;
 }
 
 .card-form .success {
-  color:
-    #3dd9a0;
+  color: #3dd9a0;
 
-  font-size:
-    14px;
+  font-size: 14px;
 
-  text-align:
-    center;
+  text-align: center;
 }
 
 
 /* =========================================================
-   RESPONSIVE
+   MÓVIL
 ========================================================= */
 
 @media (max-width: 600px) {
   .form-container {
-    padding-bottom:
-      16px;
+    padding-bottom: 16px;
   }
 
   .card-form {
-    padding:
-      22px 18px;
+    padding: 22px 18px;
 
-    border-radius:
-      16px;
+    border-radius: 16px;
   }
 
-  .card-form input {
-    min-height:
-      48px;
-  }
-
+  .card-form input,
   .btn-submit {
-    min-height:
-      48px;
+    min-height: 48px;
   }
 }
