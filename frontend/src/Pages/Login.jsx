@@ -8,44 +8,65 @@ export default function Login() {
   const [usuario, setUsuario] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [cargando, setCargando] = useState(false);
 
   const navigate = useNavigate();
 
-  // Backend de la aplicación
-  const API_URL = import.meta.env.VITE_API_URL;
+  // =====================================================
+  // URL DEL BACKEND
+  // =====================================================
+  // En Render toma VITE_API_URL de las variables de entorno.
+  // En GitHub Pages se agrega durante GitHub Actions.
+  const API_URL =
+    import.meta.env.VITE_API_URL ||
+    "https://ferreteria-alejandra.onrender.com";
 
+  // =====================================================
+  // INICIAR SESIÓN
+  // =====================================================
   const handleLogin = async (e) => {
     e.preventDefault();
 
     setError("");
 
-    if (!usuario || !password) {
+    const usuarioLimpio = usuario.trim();
+
+    if (!usuarioLimpio || !password) {
       setError("Debe completar todos los campos");
       return;
     }
 
     try {
+      setCargando(true);
+
       const res = await axios.post(
         `${API_URL}/api/auth/login`,
         {
-          usuario,
+          usuario: usuarioLimpio,
           password,
         }
       );
 
+      // Guardar usuario autenticado
       localStorage.setItem(
         "user",
         JSON.stringify(res.data.usuario)
       );
 
+      // Ir al dashboard
       navigate("/dashboard");
     } catch (err) {
-      console.error("Error al iniciar sesión:", err);
+      console.error(
+        "Error al iniciar sesión:",
+        err
+      );
 
       setError(
         err.response?.data?.msg ||
-          "Usuario o contraseña incorrectos"
+          "No se pudo iniciar sesión"
       );
+    } finally {
+      setCargando(false);
     }
   };
 
@@ -66,6 +87,8 @@ export default function Login() {
           onChange={(e) =>
             setUsuario(e.target.value)
           }
+          autoComplete="username"
+          disabled={cargando}
         />
 
         <input
@@ -75,10 +98,17 @@ export default function Login() {
           onChange={(e) =>
             setPassword(e.target.value)
           }
+          autoComplete="current-password"
+          disabled={cargando}
         />
 
-        <button type="submit">
-          Ingresar
+        <button
+          type="submit"
+          disabled={cargando}
+        >
+          {cargando
+            ? "Ingresando..."
+            : "Ingresar"}
         </button>
 
         {error && (
