@@ -1,62 +1,81 @@
-/* =========================================
+/* =========================================================
    SIDEBAR
-========================================= */
+========================================================= */
 
 .sidebar {
-  width: 290px;
+  width: 300px;
+
   height: 100vh;
+  height: 100dvh;
 
   position: sticky;
   top: 0;
 
   flex-shrink: 0;
 
-  background: #000814;
-  color: white;
-
-  padding: 22px 20px;
-
   display: flex;
   flex-direction: column;
+
+  padding: 24px 22px;
 
   overflow-y: auto;
 
-  border-right: 1px solid rgba(0, 229, 255, 0.12);
+  background:
+    linear-gradient(
+      180deg,
+      #020a17 0%,
+      #020713 100%
+    );
+
+  border-right:
+    1px solid
+    rgba(18, 223, 243, 0.14);
 
   box-shadow:
-    4px 0 20px rgba(0, 229, 255, 0.12);
+    8px 0 30px
+    rgba(0, 0, 0, 0.18);
 }
 
-/* =========================================
-   TÍTULO
-========================================= */
+
+/* =========================================================
+   TÍTULO DEL MENÚ
+========================================================= */
 
 .sidebar h2 {
-  font-size: 16px;
-  font-weight: 600;
-
-  color: #f2f4f8;
-
-  text-align: center;
-
   margin-bottom: 36px;
 
-  letter-spacing: 1.3px;
+  color: #f5f8ff;
+
+  font-size: 17px;
+
+  font-weight: 700;
+
+  letter-spacing: 0.08em;
+
+  text-align: center;
 }
 
-/* =========================================
+
+/* =========================================================
    NAVEGACIÓN
-========================================= */
+========================================================= */
 
 .sidebar nav {
+  flex: 1;
+
   display: flex;
   flex-direction: column;
-  gap: 8px;
 
-  flex: 1;
+  gap: 10px;
 }
 
-.sidebar nav button {
+
+/* =========================================================
+   BOTONES DEL MENÚ
+========================================================= */
+
+.sidebar nav button,
+.logout {
   width: 100%;
 
   display: flex;
@@ -66,106 +85,140 @@
 
   padding: 14px 16px;
 
-  background: transparent;
-  color: #ffffff;
+  border:
+    1px solid transparent;
 
-  border: 1px solid transparent;
-  border-radius: 12px;
+  border-radius: 14px;
 
   font-size: 15px;
 
+  font-weight: 500;
+
   cursor: pointer;
+}
+
+
+/* =========================================================
+   BOTONES DE NAVEGACIÓN
+========================================================= */
+
+.sidebar nav button {
+  background: transparent;
+
+  color: #eef4ff;
 
   text-align: left;
 
   transition:
-    background 0.25s ease,
-    border-color 0.25s ease,
-    box-shadow 0.25s ease,
-    transform 0.25s ease;
+    background 0.22s ease,
+    border-color 0.22s ease,
+    box-shadow 0.22s ease,
+    transform 0.22s ease;
 }
 
-.sidebar nav button svg {
+
+/* Iconos */
+
+.sidebar nav button svg,
+.logout svg {
   width: 20px;
+
+  flex: 0 0 20px;
+
   font-size: 19px;
 }
 
-/* Hover */
+
+/* =========================================================
+   HOVER DEL MENÚ
+========================================================= */
 
 .sidebar nav button:hover {
-  background: rgba(0, 229, 255, 0.1);
+  background:
+    rgba(18, 223, 243, 0.08);
 
-  border-color: rgba(0, 229, 255, 0.25);
+  border-color:
+    rgba(18, 223, 243, 0.18);
 
-  transform: translateX(3px);
+  transform:
+    translateX(3px);
 }
 
-/* Activo */
+
+/* =========================================================
+   BOTÓN ACTIVO
+========================================================= */
 
 .sidebar nav button.active {
-  background: rgba(0, 229, 255, 0.2);
+  background:
+    linear-gradient(
+      135deg,
+      rgba(11, 116, 128, 0.72),
+      rgba(8, 82, 100, 0.58)
+    );
 
-  border-color: rgba(0, 229, 255, 0.45);
+  border-color:
+    rgba(18, 223, 243, 0.58);
 
   box-shadow:
-    0 0 16px rgba(0, 229, 255, 0.28);
+    0 0 22px
+    rgba(18, 223, 243, 0.18);
 
   color: #ffffff;
 }
 
-/* =========================================
-   CERRAR SESIÓN
-========================================= */
+
+/* =========================================================
+   BOTÓN SALIR
+========================================================= */
 
 .logout {
-  width: 100%;
+  margin-top: 26px;
 
-  margin-top: 24px;
+  background:
+    rgba(220, 38, 38, 0.07);
 
-  padding: 13px 16px;
+  color: #ff8793;
 
-  display: flex;
-  align-items: center;
+  border-color:
+    rgba(239, 68, 68, 0.22);
 
-  gap: 12px;
-
-  background: rgba(239, 68, 68, 0.08);
-  color: #ff7b86;
-
-  border: 1px solid rgba(239, 68, 68, 0.2);
-  border-radius: 10px;
-
-  cursor: pointer;
-
-  font-size: 14px;
-  font-weight: 600;
+  text-align: left;
 
   transition:
-    background 0.25s ease,
-    border-color 0.25s ease,
-    color 0.25s ease;
+    background 0.22s ease,
+    border-color 0.22s ease,
+    color 0.22s ease,
+    transform 0.22s ease;
 }
 
-.logout svg {
-  font-size: 17px;
-}
+
+/* Hover salir */
 
 .logout:hover {
-  background: rgba(239, 68, 68, 0.18);
+  background:
+    rgba(220, 38, 38, 0.14);
 
-  border-color: rgba(239, 68, 68, 0.45);
+  border-color:
+    rgba(239, 68, 68, 0.45);
 
   color: #ffffff;
+
+  transform:
+    translateY(-1px);
 }
 
-/* =========================================
-   RESPONSIVE
-========================================= */
 
-@media (max-width: 768px) {
+/* =========================================================
+   RESPONSIVE - TABLET
+========================================================= */
+
+@media (max-width: 900px) {
   .sidebar {
-    width: 76px;
-    padding: 18px 10px;
+    width: 88px;
+
+    padding:
+      20px 12px;
   }
 
   .sidebar h2 {
@@ -175,12 +228,31 @@
   .sidebar nav button,
   .logout {
     justify-content: center;
-    padding-left: 10px;
-    padding-right: 10px;
+
+    padding:
+      14px 10px;
   }
 
   .sidebar nav button span,
   .logout span {
     display: none;
+  }
+}
+
+
+/* =========================================================
+   RESPONSIVE - MÓVIL
+========================================================= */
+
+@media (max-width: 560px) {
+  .sidebar {
+    width: 74px;
+
+    padding-inline: 8px;
+  }
+
+  .sidebar nav button,
+  .logout {
+    border-radius: 12px;
   }
 }
