@@ -1,123 +1,405 @@
-/* ===== LAYOUT GENERAL ===== */
+/* =========================================================
+   LAYOUT PRINCIPAL
+========================================================= */
+
 .layout {
   display: flex;
   width: 100%;
+
   min-height: 100vh;
+  min-height: 100dvh;
 }
 
-/* ===== CONTENIDO PRINCIPAL ===== */
 .content {
   flex: 1;
+
+  min-width: 0;
+
   min-height: 100vh;
-  background: radial-gradient(circle at top, #020b5a, #000);
-  color: white;
+  min-height: 100dvh;
+
+  background:
+    radial-gradient(
+      circle at 52% 0%,
+      rgba(20, 45, 145, 0.45),
+      transparent 42%
+    ),
+    linear-gradient(
+      180deg,
+      #030832 0%,
+      #020611 100%
+    );
+
+  color: var(--text);
 }
 
-/* ===== SECCION BIENVENIDA ===== */
+
+/* =========================================================
+   PANTALLA DE INICIO
+========================================================= */
+
 .welcome-container {
+  width: min(100%, 1440px);
+
   min-height: 100vh;
+  min-height: 100dvh;
+
+  margin: 0 auto;
+
   display: flex;
+
   flex-direction: column;
+
   align-items: center;
+
   justify-content: center;
-  gap: 28px;
-  text-align: center;
-  padding: 30px;
-}
 
-/* ===== TITULO ===== */
-.welcome-title {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 10px 30px;
-
-  background: linear-gradient(
-    160deg,
-    rgba(10, 35, 90, 0.85),
-    rgba(0, 15, 45, 0.75)
+  gap: clamp(
+    20px,
+    3vh,
+    30px
   );
 
-  border-radius: 25px;
+  padding: clamp(
+    24px,
+    4vw,
+    52px
+  );
+}
+
+
+/* =========================================================
+   BLOQUE DE MARCA
+========================================================= */
+
+.welcome-brand {
+  width: min(
+    100%,
+    420px
+  );
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  padding: 20px 30px;
+
+  background:
+    linear-gradient(
+      155deg,
+      rgba(12, 31, 83, 0.92),
+      rgba(3, 13, 42, 0.92)
+    );
+
+  border:
+    1px solid
+    rgba(18, 223, 243, 0.18);
+
+  border-radius:
+    var(--radius-lg);
 
   box-shadow:
-    0 0 30px rgba(0, 188, 212, 0.45),
-    inset 0 0 10px rgba(255, 255, 255, 0.06);
+    var(--shadow-soft),
+    0 0 28px
+    rgba(18, 223, 243, 0.17);
 
-  backdrop-filter: blur(8px);
+  backdrop-filter:
+    blur(10px);
 }
 
-/* ===== FERRETERÍA ===== */
+
+/* Texto pequeño FERRETERÍA */
+
 .brand-small {
-  font-size: 16px;
-  letter-spacing: 5px;
-  text-transform: uppercase;
-  color: rgba(190, 215, 240, 0.85);
+  color:
+    #c3d1e8;
+
+  font-size:
+    14px;
+
+  font-weight:
+    700;
+
+  letter-spacing:
+    0.32em;
+
+  text-transform:
+    uppercase;
 }
 
-/* ===== LINEA DECORATIVA ===== */
+
+/* Línea decorativa */
+
 .brand-line {
-  width: 100px;
-  height: 2px;
-  margin: 10px 0;
+  width:
+    110px;
 
-  background: linear-gradient(
-    to right,
-    transparent,
-    #00bcd4,
-    transparent
-  );
+  height:
+    2px;
 
-  border-radius: 2px;
+  margin:
+    10px 0 8px;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      var(--cyan),
+      transparent
+    );
+
+  border-radius:
+    999px;
 }
 
-/* ===== ALEJANDRA ===== */
+
+/* Nombre ALEJANDRA */
+
 .brand-big {
-  font-size: 30px;
-  font-weight: 800;
-  letter-spacing: 2px;
-  color: #ffffff;
+  color:
+    #ffffff;
+
+  font-size:
+    clamp(
+      30px,
+      3vw,
+      42px
+    );
+
+  font-weight:
+    800;
+
+  letter-spacing:
+    0.04em;
+
+  line-height:
+    1.1;
 
   text-shadow:
-    0 0 16px rgba(0, 188, 212, 0.45),
-    0 0 35px rgba(0, 188, 212, 0.25);
+    0 0 18px
+    rgba(18, 223, 243, 0.28);
 }
 
-/* ===== IMAGEN ===== */
+
+/* Subtítulo */
+
+.welcome-subtitle {
+  max-width:
+    330px;
+
+  margin-top:
+    12px;
+
+  color:
+    var(--text-soft);
+
+  font-size:
+    14px;
+
+  line-height:
+    1.55;
+
+  text-align:
+    center;
+}
+
+
+/* =========================================================
+   IMAGEN PRINCIPAL
+========================================================= */
+
+.welcome-image-frame {
+  width: min(
+    100%,
+    1120px
+  );
+
+  height:
+    clamp(
+      330px,
+      56dvh,
+      560px
+    );
+
+  overflow:
+    hidden;
+
+  border:
+    1px solid
+    rgba(18, 223, 243, 0.18);
+
+  border-radius:
+    24px;
+
+  background:
+    #07112b;
+
+  box-shadow:
+    var(--shadow-soft),
+    0 0 26px
+    rgba(18, 223, 243, 0.12);
+}
+
+
+/* Imagen */
+
 .welcome-image {
-  width: 85%;
-  max-width: 950px;
-  height: auto;
-  border-radius: 18px;
-  box-shadow: 0 0 40px rgba(0, 0, 0, 0.65);
+  width:
+    100%;
+
+  height:
+    100%;
+
+  object-fit:
+    cover;
+
+  object-position:
+    center 42%;
+
+  transition:
+    transform 0.45s ease,
+    filter 0.45s ease;
 }
 
-/* ===== SECCIONES ===== */
-.productos-container,
-.movimientos-container {
-  padding: 30px;
+
+/* Efecto hover sutil */
+
+.welcome-image-frame:hover
+.welcome-image {
+  transform:
+    scale(1.015);
+
+  filter:
+    saturate(1.03)
+    contrast(1.02);
 }
 
-/* ===== RESPONSIVE ===== */
-@media (max-width: 768px) {
-  .welcome-title {
-    padding: 15px 45px;
+
+/* =========================================================
+   PANTALLA PRODUCTOS
+========================================================= */
+
+.productos-container {
+  width: min(
+    100%,
+    1540px
+  );
+
+  min-height:
+    100vh;
+
+  min-height:
+    100dvh;
+
+  margin:
+    0 auto;
+
+  padding:
+    clamp(
+      24px,
+      3.5vw,
+      52px
+    );
+}
+
+
+/* =========================================================
+   RESPONSIVE TABLET
+========================================================= */
+
+@media (
+  max-width: 900px
+) {
+
+  .welcome-container {
+    justify-content:
+      flex-start;
+
+    padding-top:
+      28px;
+  }
+
+  .welcome-image-frame {
+    height:
+      clamp(
+        290px,
+        48dvh,
+        440px
+      );
+  }
+}
+
+
+/* =========================================================
+   RESPONSIVE MÓVIL
+========================================================= */
+
+@media (
+  max-width: 600px
+) {
+
+  .welcome-container {
+    padding:
+      18px 14px;
+
+    gap:
+      18px;
+  }
+
+  .welcome-brand {
+    padding:
+      18px 20px;
+
+    border-radius:
+      18px;
   }
 
   .brand-small {
-    font-size: 10px;
-    letter-spacing: 3px;
+    font-size:
+      11px;
+
+    letter-spacing:
+      0.25em;
   }
 
-  .brand-big {
-    font-size: 20px;
+  .welcome-subtitle {
+    font-size:
+      13px;
   }
 
-  .brand-line {
-    width: 45px;
+  .welcome-image-frame {
+    height:
+      300px;
+
+    border-radius:
+      18px;
   }
+
+  .productos-container {
+    padding:
+      18px 12px;
+  }
+}
+
+
+/* =========================================================
+   ACCESIBILIDAD
+========================================================= */
+
+@media (
+  prefers-reduced-motion: reduce
+) {
 
   .welcome-image {
-    width: 100%;
+    transition:
+      none;
+  }
+
+  .welcome-image-frame:hover
+  .welcome-image {
+    transform:
+      none;
   }
 }
